@@ -14,7 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -41,12 +44,12 @@ public class Photo {
 	@Column(name = "url_photo", nullable = false)
 	private String pathFoPhoto;
 	
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="objects_photos")
-	private ObjectPlace objectPlace;
-    
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="users_photos")
-	private SmartphonesUser smartphonesUser;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="objects_photos")
+//	private ObjectPlace objectPlace;
+//    
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="users_photos")
+//	private SmartphonesUser smartphonesUser;
 
 }

@@ -27,9 +27,9 @@ public class ObjectPlace {
 	@Size (min=1, max=100)
 	private String name;
 	
-	@OneToMany(mappedBy="objectPlace", cascade = CascadeType.ALL)
-	@Column(name = "objects_photos")
-	private Set<Photo> photos;
+//	@OneToMany(mappedBy="objectPlace", cascade = CascadeType.ALL)
+//	@Column(name = "objects_photos")
+//	private Set<Photo> photos;
 	
 
 }

@@ -22,18 +22,18 @@ public class LocalFilesController {
 	@Getter
 	protected static final String pathToResource = "..\\Server-for-photo\\src\\main\\resources\\";
 	
-	public static boolean copyFileForlocalDirectory(MultipartFile file) {
-		Path copied = Paths.get(pathToResource, "test.jpg");
+	public static Optional<Path> copyFileForlocalDirectory(MultipartFile file) {
+		Path copied = Paths.get(pathToResource, file.getOriginalFilename());
 		if (Files.notExists(copied)) {
 			Files.exists(copied);
 		}
 		try {
 			Files.copy(file.getInputStream(), copied, StandardCopyOption.REPLACE_EXISTING);
-			return true;
+			return Optional.of(copied);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		return false;
+		return Optional.empty();
 	}
 	
 	public boolean deleteFile(String link) {

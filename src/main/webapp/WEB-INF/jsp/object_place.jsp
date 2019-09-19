@@ -26,7 +26,7 @@
 		</div>
 		<section class="inputObject">
 			<div class="container">
-			<h3>Add new object:</h2>
+			<h3>Add new object:</h3>
 				<div class="row">
 					<div class="form-group">
 						<form:form method="post" action="${prefix}/object_place/create/"

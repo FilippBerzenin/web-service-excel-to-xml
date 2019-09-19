@@ -16,9 +16,9 @@ import com.berzenin.app.web.dto.SelectionsRequest;
 
 @Controller
 @RequestMapping(value = "/object_place")
-public class ObjectPlaceController extends GenericViewControllerImpl<ObjectPlace, ObjectPlaceService> {
+public class ObjectPlaceViewController extends GenericViewControllerImpl<ObjectPlace, ObjectPlaceService> {
 
-	ObjectPlaceController(ObjectPlaceService service) {
+	ObjectPlaceViewController(ObjectPlaceService service) {
 		page = "object_place";
 	}
 

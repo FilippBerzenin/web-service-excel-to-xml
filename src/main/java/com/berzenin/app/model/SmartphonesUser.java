@@ -12,12 +12,16 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SmartphonesUser {
 	
 	@Id
@@ -29,9 +33,9 @@ public class SmartphonesUser {
 	@Size (min=1, max=100)
 	private String name;
 	
-	@OneToMany(mappedBy="smartphonesUser", cascade = CascadeType.ALL)
-	@Column(name = "users_photos")
-	private Set<Photo> photos;
+//	@OneToMany(mappedBy="smartphonesUser", cascade = CascadeType.ALL)
+//	@Column(name = "users_photos")
+//	private Set<Photo> photos;
 	
 	
 

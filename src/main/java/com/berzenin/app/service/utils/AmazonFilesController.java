@@ -122,26 +122,24 @@ public class AmazonFilesController {
 //	@Getter
 //	protected static final String pathToResource = "web-stell-searcher";
 	
-	public boolean copyFileForlocalDirectory(MultipartFile file) {
+	public Optional<Path> copyFileForlocalDirectory(MultipartFile file) {
 		try {
 			log.info("File upload started " + file.getOriginalFilename());
 			String path = this.getLocalPathForPdf(file).toString().replace("\\", "/");
 		    ObjectMetadata metadata = new ObjectMetadata();
 		    metadata.setContentLength(file.getSize());
 			s3Client.putObject(new PutObjectRequest(bucketName, path, file.getInputStream(), metadata));
-			
-//			s3Client.putObject(bucketName, path, convertMultiPartToFile(file));
 			log.info("File set security Permission started " + file.getOriginalFilename());
 			final AccessControlList acl = s3Client.getObjectAcl(bucketName, path);
 			acl.grantPermission(GroupGrantee.AllUsers, Permission.FullControl);
 			log.info("File set security Permission finished " + file.getOriginalFilename());
 			s3Client.setObjectAcl(bucketName, path, acl);
 			log.info("File upload " + file.getOriginalFilename() + " successful");		
-			return true;
+			return Optional.of(Paths.get(path));
 		} catch (NullPointerException | AmazonClientException | IOException e) {
 			log.error("File upload failed " + file.getOriginalFilename() + e.getLocalizedMessage());
 			e.printStackTrace();
-			return false;
+			return Optional.empty();
 		}
 	}
 	
