@@ -19,16 +19,18 @@
 <body>
 	<div class="container">
 		<h2>${message}</h2>
-<%-- 		<div class="table-responsive">
-			<a href="${prefix}/groups/show/all" class="list-group-item">Groups
-				page</a> <br> <a href="${prefix}/teachers/show/all"
+		<div class="table-responsive">
+			<a href="${prefix}/object_place/show/all" class="list-group-item">Object
+				page</a> <br>
+				
+<%-- 				 <a href="${prefix}/teachers/show/all"
 				class="list-group-item">Teachers page</a> <br> <a
 				href="${prefix}/courses/show/all" class="list-group-item">Courses
 				page</a> <br> <a href="${prefix}/exercises/show/all"
 				class="list-group-item">Exercises page</a> <br> <a
 				href="${prefix}/timetable/start" class="list-group-item">Timetable
-				page</a> <br>
-		</div> --%>
+				page</a> <br> --%>
+		</div>
 
 		<div class="form-group">
 			<h3>File download:</h3>
