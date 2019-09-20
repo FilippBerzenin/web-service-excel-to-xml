@@ -19,5 +19,4 @@ public class MerchViewController extends GenericViewControllerImpl<Merch, MerchS
 	public Merch getLoginForm() {
 		return new Merch();
 	}
-
 }

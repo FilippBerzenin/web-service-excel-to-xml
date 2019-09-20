@@ -46,7 +46,7 @@ public class Photo {
 	private ObjectPlace objectPlace;
     
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="users_photos")
-	private Merch smartphonesUser;
+	@JoinColumn(name="merch_photos")
+	private Merch merch;
 
 }

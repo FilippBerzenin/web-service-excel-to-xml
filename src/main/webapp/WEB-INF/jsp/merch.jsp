@@ -48,15 +48,15 @@
 					<tr>
 						<td>${merch.name}</td>
 						<td>
-							<form action="${prefix}/${page}/update/${merch.id}"
-								method="post">
+							<form action="${prefix}/merch_inner/show/${merch.id}"
+								method="get">
 								<button type="submit" name="update" value="update">Update</button>
 							</form>	
 						</td>
 						<td>										
 							<form action="${prefix}/${page}/delete/${merch.id}"
 								method="post">
-								<input type="submit" value="delete" onclick="if (confirm('Are you sure you want to delete?')) form.action='${prefix}/${page}/delete/${merch.id}'; else return false;" />
+								<input type="submit" value="delete" onclick="if (confirm('Are you sure you want to delete ${merch.name}?')) form.action='${prefix}/${page}/delete/${merch.id}'; else return false;" />
 								<!-- <button type="submit" name="delete" value="Delete">Delete</button> -->
 							</form>						
 						<td>
@@ -88,10 +88,6 @@
 					</table>
 				</form:form>
 			</div>
-			
-<%-- 				<form action="${prefix}/merch/add" method="POST">
-					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить мерча</button>
-				</form> --%>
 			</div>
 		</div>
 	</div>
