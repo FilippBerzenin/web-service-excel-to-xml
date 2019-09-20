@@ -33,10 +33,8 @@ public class SmartphonesUser {
 	@Size (min=1, max=100)
 	private String name;
 	
-//	@OneToMany(mappedBy="smartphonesUser", cascade = CascadeType.ALL)
-//	@Column(name = "users_photos")
-//	private Set<Photo> photos;
-	
-	
+	@OneToMany(mappedBy="smartphonesUser", cascade = CascadeType.ALL)
+	@Column(name = "users_photos")
+	private Set<Photo> photos;
 
 }

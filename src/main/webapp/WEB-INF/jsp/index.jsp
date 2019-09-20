@@ -1,46 +1,58 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix='form' uri='http://www.springframework.org/tags/form'%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<!DOCTYPE html "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/dopstyle.css">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+.fakeimg {
+	height: 200px;
+	background: #aaa;
+}
+</style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
-<title>Welcome</title>
+<c:set var="page" value="${page}" />
 </head>
 <body>
-	<div class="container">
-		<h2>${message}</h2>
-		<div class="table-responsive">
-			<a href="${prefix}/object_place/show/all" class="list-group-item">Object
-				page</a> <br>
-				
-<%-- 				 <a href="${prefix}/teachers/show/all"
-				class="list-group-item">Teachers page</a> <br> <a
-				href="${prefix}/courses/show/all" class="list-group-item">Courses
-				page</a> <br> <a href="${prefix}/exercises/show/all"
-				class="list-group-item">Exercises page</a> <br> <a
-				href="${prefix}/timetable/start" class="list-group-item">Timetable
-				page</a> <br> --%>
-		</div>
 
-		<div class="form-group">
-			<h3>File download:</h3>
-			Select a file to upload: <br />
-			<form class="form-group" action="/photo/upload"
-				method="post" enctype="multipart/form-data">
-				<input type="file" name="file" size="50" />
-				<button type="submit">Upload File</button>
-			</form>
+	<div class="jumbotron text-center" style="margin-bottom: 0">
+		<h1>Logo</h1>
+	</div>
+
+	<div class="container" align="center" style="margin-top: 30px">
+		<div class="row align-items-center">
+			<div class="col-sm-4">
+				<form action="${prefix}/object_place/show/all" method="GET">
+					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить объект</button>
+				</form>
+			</div>
+			<div class="col-sm-4">
+				<form action="${prefix}/smartphones_user/show/all" method="GET">
+					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить мерча</button>
+				</form>
+			</div>
+			<div class="col-sm-4">
+				<form action="${prefix}/selection/show/all" method="GET">
+					<button type="submit" class="btn btn-outline-primary btn-lg">Показать сводку</button>
+				</form>
+			</div>
 		</div>
 	</div>
+
+	<!-- <div class="jumbotron text-center" style="margin-bottom:0">
+  <p>Footer</p>
+</div> -->
+
 </body>
 </html>
