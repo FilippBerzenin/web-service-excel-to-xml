@@ -38,7 +38,7 @@
 				</form>
 			</div>
 			<div class="col-sm-4">
-				<form action="${prefix}/smartphones_user/show/all" method="GET">
+				<form action="${prefix}/merch/show/all" method="GET">
 					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить мерча</button>
 				</form>
 			</div>
@@ -49,10 +49,5 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- <div class="jumbotron text-center" style="margin-bottom:0">
-  <p>Footer</p>
-</div> -->
-
 </body>
 </html>

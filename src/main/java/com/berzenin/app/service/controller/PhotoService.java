@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.berzenin.app.dao.PhotoRepository;
 import com.berzenin.app.model.ObjectPlace;
 import com.berzenin.app.model.Photo;
-import com.berzenin.app.model.SmartphonesUser;
+import com.berzenin.app.model.Merch;
 import com.berzenin.app.service.utils.AmazonFilesController;
 import com.berzenin.app.service.utils.LocalFilesController;
 
