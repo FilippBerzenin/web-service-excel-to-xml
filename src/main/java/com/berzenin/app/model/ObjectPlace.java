@@ -16,10 +16,12 @@ import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = "merch")
+@EqualsAndHashCode(exclude = {"merch", "photos"})
+@ToString(exclude = {"merch", "photos"})
 public class ObjectPlace {
 	
 	@Id
@@ -30,10 +32,10 @@ public class ObjectPlace {
 	@Size (min=1, max=100)
 	private String name;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="objectPlace", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="objectPlace")
 	@Column(name = "objects_photos")
 	private Set<Photo> photos;
 	
-	@ManyToMany(mappedBy = "objectPlace")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "objectPlace")
 	private Set<Merch> merch;
 }

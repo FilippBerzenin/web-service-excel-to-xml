@@ -20,6 +20,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -27,11 +28,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"photos", "objectPlace"})
+@ToString(exclude = {"photos", "objectPlace"})
 public class Merch {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name = "merch_id")
 	private long id;
 	
 	@NotNull
@@ -46,7 +47,7 @@ public class Merch {
 	@Size (min=1, max=100)
 	private String pass;
 	
-	@OneToMany(mappedBy="merch")
+	@OneToMany(mappedBy="merch", fetch = FetchType.LAZY)
 	@Column(name = "users_photos")
 	private Set<Photo> photos;
 	

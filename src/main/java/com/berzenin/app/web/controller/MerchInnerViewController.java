@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.berzenin.app.model.Merch;
@@ -29,7 +30,7 @@ public class MerchInnerViewController extends GenericViewControllerImpl<Merch, M
 		page = "merch_inner";
 	}
 	
-	@ModelAttribute("new_merch")
+	@ModelAttribute("entity")
 	public Merch getLoginForm() {
 		return new Merch();
 	}
@@ -41,7 +42,7 @@ public class MerchInnerViewController extends GenericViewControllerImpl<Merch, M
 					.collect(Collectors.toSet());
 			model.addAttribute("objectsList", objectsList);
 			Merch merch = service.findById(id);
-			model.addAttribute("merch", merch);
+			model.addAttribute("entity", merch);
 			model.addAttribute("page", "merch_inner");
 			return page;	
 		} catch (RuntimeException e) {
@@ -52,18 +53,20 @@ public class MerchInnerViewController extends GenericViewControllerImpl<Merch, M
 	
 	@RequestMapping(value="/addObject/{merch_id}", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public String addObject(@PathVariable("merch_id") Long merch_id,
-							@ModelAttribute("selectedCatId") Long object_id,
-							Model model) {
+	public String addObject(
+			@PathVariable("merch_id") Long merch_id,
+			@RequestParam("object") ObjectPlace object_id,
+			Model model) {
 		try {
 			Set<ObjectPlace> objectsList = objectPlaceService.findAll().stream()
 					.collect(Collectors.toSet());
 			Merch merch = service.findById(merch_id);
-			ObjectPlace objectPlace = objectPlaceService.findById(object_id);
+			ObjectPlace objectPlace = objectPlaceService.findById(object_id.getId());
 			merch.getObjectPlace().add(objectPlace);
+			service.update(merch);
 			
 			model.addAttribute("objectsList", objectsList);
-			model.addAttribute("merch", merch);
+			model.addAttribute("entity", merch);
 			model.addAttribute("page", "merch_inner");
 			return page;	
 		} catch (RuntimeException e) {

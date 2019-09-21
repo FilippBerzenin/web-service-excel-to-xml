@@ -23,7 +23,7 @@
 </style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
 <c:set var="page" value="${page}" />
-<c:set var="merch" value="${merch}" />
+<c:set var="merch" value="${entity}" />
 </head>
 <body>
 
@@ -37,13 +37,14 @@
 			<div class="col-sm-6">
 				<div class="form-group"">
 					<form:form method="post" action="${prefix}/${page}/update/"
-						modelAttribute="new_merch">
+						modelAttribute="entity">
 						<table>
 							<tr>
 								<td><h4 align="left">Id: ${merch.id}</h4></td>
 							</tr>
 							<tr>
 								<td><form:input path="name" placeholder="${merch.name}" /></td>
+								<form:input type="hidden" path="id" placeholder="${merch.id}" />
 								<td><font color="red"><form:errors path="name" /></font></td>
 							</tr>
 							<tr>
@@ -64,19 +65,17 @@
 		</div>
 		<!--List of object  -->
 		<div class="col-sm-6">
-		<div>
-			<form action="${prefix}/merch/addObject/${merch.id}" method="post">
-				Select a Category:&nbsp; 
-				<select name="object">
-					<c:forEach items="${objectsList}" var="object">
-						<option value="${object.id}"
-							<c:if test="${object.id eq selectedCatId}">selected="selected"</c:if>>
-							${object.name}</option>
-					</c:forEach>
-				</select> <br />
-				<br /> <input type="submit" value="Submit" />
-			</form>		
-		</div>
+			<div>
+				<form action="${prefix}/merch_inner/addObject/${merch.id}"
+					method="post">
+					Select a Category:&nbsp; <select name="object">
+						<c:forEach items="${objectsList}" var="object">
+							<option value="${object.id}">${object.name}</option>
+						</c:forEach>
+					</select> <br />
+					<br /> <input type="submit" value="Submit" />
+				</form>
+			</div>
 			<table class="table  table-sm">
 				<thead class="table-info">
 					<tr>

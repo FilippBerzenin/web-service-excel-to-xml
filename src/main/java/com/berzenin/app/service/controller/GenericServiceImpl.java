@@ -2,14 +2,17 @@ package com.berzenin.app.service.controller;
 
 import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.berzenin.app.web.exception.NotFoundException;
 
 @Service
-public abstract class GenericServiceImpl<E, R extends CrudRepository<E, Long>> implements GenericService<E> {
+public abstract class GenericServiceImpl<E, R extends JpaRepository<E, Long>> implements GenericService<E> {
 	
     protected final R repository;
 
@@ -36,7 +39,8 @@ public abstract class GenericServiceImpl<E, R extends CrudRepository<E, Long>> i
 	
 	@Override
 	public E update(E entity) {
-		return repository.save(entity);
+		repository.saveAndFlush(entity);
+		return entity;
 	}
 
 	@Override

@@ -15,9 +15,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"objectPlace", "merch"})
+@ToString(exclude = {"objectPlace", "merch"})
 public class Photo {
 
 	@Id
