@@ -5,67 +5,59 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/dopstyle.css">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+.fakeimg {
+	height: 200px;
+	background: #aaa;
+}
+</style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
 <c:set var="page" value="${page}" />
-<title>Object(place) page</title>
+</head>
+<title>Object page</title>
 </head>
 <body>
-	<div class="container">
-			<div>
-				<c:if test="${not empty message}">
-			<div class="alert alert-success">${message}</div>
-		</c:if>
-		</div>
-		<section class="inputObject">
-			<div class="container">
-			<h3>Add new object:</h3>
-				<div class="row">
-					<div class="form-group">
-						<form:form method="post" action="${prefix}/object_place/create/"
-							modelAttribute="entityFor">
-							<table>
-								<tr>
-									<td><font color="red"><form:errors path="name" /></font></td>
-									<td><form:input path="name" placeholder="object(place)" /></td>
-									<td><button type="submit">Add new object</button></td>
-								</tr>
-							</table>
-						</form:form>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section class="listOfObject">
-			<div class="container">
-			<h2>Objects list:</h2>
+
+	<div class="jumbotron text-center" style="margin-bottom: 0">
+		<h1>Logo</h1>
+	</div>
+	
+	<div class="container" align="center" style="margin-top: 30px">
+			<h1>Создание и отображение объекта </h1>
+		<div class="row align-items-center">
+			<div class="col-sm-6">
+			<h2>Список объектов:</h2>
 			<table class="table table-hover">
-			<thead class="table-info">
+			<thead>
 				<tr>
 					<th>#</th>
-					<th>ID</th>
+					<!-- <th>ID</th> -->
 					<th>Object name</th>
-					<th>Objects photo</th>
-					<th>Delete</th>
+					<!-- <th>Objects photo</th> -->
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="object_place" items="${listOfEntites}" varStatus="counter">
 					<tr>
 						<td>${counter.count}</td>
-						<td>${object_place.id}</td>
+						<%-- <td>${object_place.id}</td> --%>
 						<td>${object_place.name}</td>
-						<td>${object_place.photos}</td>
+						<%-- <td>${object_place.photos}</td> --%>
 						<td>
 							<form action="${prefix}/object_place/delete/${object_place.id}" method="post">
-								<button type="submit" name="delete" value="Delete">Delete</button>
+								<input type="submit" value="delete"
+										onclick="if (confirm('Are you sure you want to delete ${object_place.name}?')) form.action='${prefix}/object_place/delete/${object_place.id}'; else return false;" />
 							</form>
 						</td>
 					</tr>
@@ -73,7 +65,23 @@
 			</tbody>
 		</table>
 			</div>
-		</section>
+			<div class="col-sm-6">
+				<div>
+					<div class="form-group">
+						<form:form method="post" action="${prefix}/object_place/create/"
+							modelAttribute="entityFor">
+							<table>
+								<tr>
+									<td><font color="red"><form:errors path="name" /></font></td>
+									<td><form:input path="name" placeholder="object(place)" /></td>
+									<td><button type="submit">Добавить</button></td>
+								</tr>
+							</table>
+						</form:form>
+					</div>
+				</div>
+			</div>
+	</div>
 	</div>
 </body>
 </html>

@@ -91,7 +91,6 @@
 									method="post">
 									<input type="submit" value="delete"
 										onclick="if (confirm('Are you sure you want to delete ${objectPlace.name} from ${merch.name}?')) form.action='${prefix}/${page}/removeObject/${merch.id}/${objectPlace.id}'; else return false;" />
-									<!-- <button type="submit" name="delete" value="Delete">Delete</button> -->
 								</form>
 							<td>
 						</tr>
