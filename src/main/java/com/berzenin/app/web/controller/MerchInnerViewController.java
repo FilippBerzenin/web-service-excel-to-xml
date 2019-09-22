@@ -74,5 +74,29 @@ public class MerchInnerViewController extends GenericViewControllerImpl<Merch, M
 			return page;
 		}
 	}
+	
+	@RequestMapping(value="/removeObject/{merch_id}/{objectPlace_id}", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public String remobeObject(
+			@PathVariable("merch_id") Long merch_id,
+			@PathVariable("objectPlace_id") Long object_id,
+			Model model) {
+		try {
+			Set<ObjectPlace> objectsList = objectPlaceService.findAll().stream()
+					.collect(Collectors.toSet());
+			Merch merch = service.findById(merch_id);
+			ObjectPlace objectPlace = objectPlaceService.findById(object_id);
+			merch.getObjectPlace().remove(objectPlace);
+			service.update(merch);
+			
+			model.addAttribute("objectsList", objectsList);
+			model.addAttribute("entity", merch);
+			model.addAttribute("page", "merch_inner");
+			return page;	
+		} catch (RuntimeException e) {
+			this.setModelAttributeWhenthrowException(e, model);
+			return page;
+		}
+	}
 
 }

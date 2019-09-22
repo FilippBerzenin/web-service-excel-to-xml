@@ -35,7 +35,7 @@
 		<div class="row align-items-center">
 		<!--List of merchs  -->
 		<div class="col-sm-6">
-		<table class="table  table-sm">
+		<table class="table table-hover table-sm">
 			<thead class="table-info">
 				<tr>
 					<th>Список мерчей</th>
@@ -67,7 +67,7 @@
 			</div>
 			<!--Add new merchs  -->
 			<div class="col-sm-6">
-				<div class="form-group"  style="margin-top: 60px">
+				<div class="form-group"  style="margin-top: 20px">
 				<form:form method="post" action="${prefix}/merch/create/" modelAttribute="new_merch">
 					<table>
 						<tr>
@@ -75,15 +75,15 @@
 							<td><font color="red"><form:errors path="name" /></font></td>
 						</tr>
 						<tr>
-							<td><form:input path="login" placeholder="логин"/></td>
+							<td><form:input path="login" placeholder="логин" style="margin-top: 5px"/></td>
 							<td><font color="red"><form:errors path="login" /></font></td>
 						</tr>
 						<tr>							
-							<td><form:input path="pass" placeholder="пароль"/></td>
+							<td><form:input path="pass" placeholder="пароль" style="margin-top: 5px"/></td>
 							<td><font color="red"><form:errors path="pass" /></font></td>
 						</tr>
 						<tr>
-							<td><button type="submit">Добавить</button></td>
+							<td><button type="submit" style="margin-top: 5px">Добавить</button></td>
 						</tr>
 					</table>
 				</form:form>

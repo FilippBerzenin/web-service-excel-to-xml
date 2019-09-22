@@ -35,7 +35,7 @@
 		<div class="row align-items-center">
 			<!--Add new merchs  -->
 			<div class="col-sm-6">
-				<div class="form-group"">
+				<div class="form-group">
 					<form:form method="post" action="${prefix}/${page}/update/"
 						modelAttribute="entity">
 						<table>
@@ -43,26 +43,25 @@
 								<td><h4 align="left">Id: ${merch.id}</h4></td>
 							</tr>
 							<tr>
-								<td><form:input path="name" placeholder="${merch.name}" /></td>
+								<td><form:input path="name" placeholder="${merch.name}" style="margin-top: 5px"/></td>
 								<form:input type="hidden" path="id" placeholder="${merch.id}" />
 								<td><font color="red"><form:errors path="name" /></font></td>
 							</tr>
 							<tr>
-								<td><form:input path="login" placeholder="${merch.login}" /></td>
+								<td><form:input path="login" placeholder="${merch.login}" style="margin-top: 5px"/></td>
 								<td><font color="red"><form:errors path="login" /></font></td>
 							</tr>
 							<tr>
-								<td><form:input path="pass" placeholder="${merch.pass}" /></td>
+								<td><form:input path="pass" placeholder="${merch.pass}" style="margin-top: 5px"/></td>
 								<td><font color="red"><form:errors path="pass" /></font></td>
 							</tr>
 							<tr>
-								<td><button type="submit">Сохранить</button></td>
+								<td><button type="submit" style="margin-top: 5px">Сохранить</button></td>
 							</tr>
 						</table>
 					</form:form>
 				</div>
 			</div>
-		</div>
 		<!--List of object  -->
 		<div class="col-sm-6">
 			<div>
@@ -73,30 +72,25 @@
 							<option value="${object.id}">${object.name}</option>
 						</c:forEach>
 					</select> <br />
-					<br /> <input type="submit" value="Submit" />
+					<br /> <input type="submit" value="Добавить" />
 				</form>
 			</div>
-			<table class="table  table-sm">
-				<thead class="table-info">
+			<table class="table table-hover">
+				<thead>
 					<tr>
 						<th>Список объектов</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="objectPlace" items="${merch.objectPlace}">
 						<tr>
 							<td>${objectPlace.name}</td>
-							<%-- 						<td>
-							<form action="${prefix}/${page}/update/${merch.id}"
-								method="post">
-								<button type="submit" name="update" value="update">Update</button>
-							</form>	
-						</td> --%>
 							<td>
-								<form action="${prefix}/${page}/delete/${merch.id}"
+								<form action="${prefix}/${page}/removeObject/${merch.id}/${objectPlace.id}"
 									method="post">
 									<input type="submit" value="delete"
-										onclick="if (confirm('Are you sure you want to delete ${merch.name}?')) form.action='${prefix}/${page}/delete/${merch.id}'; else return false;" />
+										onclick="if (confirm('Are you sure you want to delete ${objectPlace.name} from ${merch.name}?')) form.action='${prefix}/${page}/removeObject/${merch.id}/${objectPlace.id}'; else return false;" />
 									<!-- <button type="submit" name="delete" value="Delete">Delete</button> -->
 								</form>
 							<td>
@@ -104,6 +98,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+		</div>
 		</div>
 	</div>
 </body>
