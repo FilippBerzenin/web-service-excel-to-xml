@@ -4,34 +4,25 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class SelectionsRequest {	
 	
-	private long id;
-	
-	private String name;
-	
-	private String surename;
+	private String typeReqest;
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateStartSearch;
 	
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateFinishSearch;
 	
-	public SelectionsRequest(Long id, String name, String surename, LocalDate dateStartSearch, LocalDate dateFinishSearch) {
-		this.id=id;
-		this.name=name;
-		this.surename=surename;
-		this.dateStartSearch = dateStartSearch;
-		this.dateFinishSearch = dateFinishSearch;
-	}
-
 	public SelectionsRequest() {
 	}
 
+	public SelectionsRequest(String typeReqest, LocalDate dateStartSearch, LocalDate dateFinishSearch) {
+		this.typeReqest = typeReqest;
+		this.dateStartSearch = dateStartSearch;
+		this.dateFinishSearch = dateFinishSearch;
+	}
 }

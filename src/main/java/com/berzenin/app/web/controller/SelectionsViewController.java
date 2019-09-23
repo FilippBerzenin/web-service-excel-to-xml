@@ -1,5 +1,7 @@
 package com.berzenin.app.web.controller;
 
+import java.util.Arrays;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -12,25 +14,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.berzenin.app.model.Photo;
+import com.berzenin.app.model.TypeReqest;
 import com.berzenin.app.service.controller.SelectionsService;
 import com.berzenin.app.web.dto.SelectionsRequest;
 
 @Controller
-@RequestMapping(value="/timetable")
+@RequestMapping(value="/reports")
 public class SelectionsViewController extends GenericViewControllerImpl<Photo, SelectionsService> {
 	
 	public 	SelectionsViewController(SelectionsService service) {
-		page = "timetable";
+		page = "reports";
 	}
 	
-	@ModelAttribute("entityFor")
+	@ModelAttribute("requestFor")
 	public SelectionsRequest getLoginForm() {
 		return new SelectionsRequest();
 	}
 	
-	@RequestMapping(value="/start", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public String setStartPage () {
+	public String setStartPage (Model model) {
+		model.addAttribute("page", page);
+		model.addAttribute("objectTypes", TypeReqest.values());
+		return page;		
+	}
+	
+	@RequestMapping(value = "/createRequest", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public String getRezult (
+			@ModelAttribute("requestFor") @Valid SelectionsRequest req,
+			BindingResult result, 
+			Model model) {
+		System.out.println("start: ");
 		return page;		
 	}
 

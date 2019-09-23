@@ -31,21 +31,27 @@
 	</div>
 
 	<div class="container" align="center" style="margin-top: 30px">
-		<div class="row align-items-center">
-			<div class="col-sm-4">
-				<form action="${prefix}/object_place/show/all" method="GET">
-					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить объект</button>
-				</form>
-			</div>
-			<div class="col-sm-4">
-				<form action="${prefix}/merch/show/all" method="GET">
-					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить мерча</button>
-				</form>
-			</div>
-			<div class="col-sm-4">
-				<form action="${prefix}/reports" method="GET">
-					<button type="submit" class="btn btn-outline-primary btn-lg">Показать сводку</button>
-				</form>
+		<div class="align-items-center">
+		<h3>Формирование сводки</h3>
+			<div>
+			<form:form action="${prefix}/reports/createRequest" modelAttribute="requestFor"	method="post">
+				<div class="row">
+				<div class="col-sm">
+					<form:input class="form-control" type="date" path="dateStartSearch"/>
+				</div>
+				<div class="col-sm">
+					<form:input class="form-control" type="date" path="dateFinishSearch"/>
+				</div>
+				<div class="col-sm">
+					<form:select path="typeReqest">
+    					<form:options items="${objectTypes}" itemValue="value"/>
+					</form:select>
+				</div>
+				</div>
+				<div>
+					<input type="submit" value="Сформировать сводку" />
+				</div>
+			</form:form>
 			</div>
 		</div>
 	</div>
