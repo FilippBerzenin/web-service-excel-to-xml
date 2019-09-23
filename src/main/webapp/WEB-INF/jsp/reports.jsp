@@ -20,6 +20,17 @@
 	height: 200px;
 	background: #aaa;
 }
+      .error {
+         color: #ff0000;
+      }
+
+      .errorblock {
+         color: #000;
+         background-color: #ffEEEE;
+         border: 3px solid #ff0000;
+         padding: 8px;
+         margin: 16px;
+      }
 </style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
 <c:set var="page" value="${page}" />
@@ -32,26 +43,36 @@
 
 	<div class="container" align="center" style="margin-top: 30px">
 		<div class="align-items-center">
-		<h3>Формирование сводки</h3>
+			<h3>Формирование сводки</h3>
+			<c:if test="${not empty message}">
+			<br>
+				<div class="alert alert-success">${message}</div>
+			</c:if>
+			<br>
 			<div>
-			<form:form action="${prefix}/reports/createRequest" modelAttribute="requestFor"	method="post">
-				<div class="row">
-				<div class="col-sm">
-					<form:input class="form-control" type="date" path="dateStartSearch"/>
-				</div>
-				<div class="col-sm">
-					<form:input class="form-control" type="date" path="dateFinishSearch"/>
-				</div>
-				<div class="col-sm">
-					<form:select path="typeReqest">
-    					<form:options items="${objectTypes}" itemValue="value"/>
-					</form:select>
-				</div>
-				</div>
-				<div>
-					<input type="submit" value="Сформировать сводку" />
-				</div>
-			</form:form>
+				<form:form action="${prefix}/reports/createRequest"
+					modelAttribute="requestFor" method="post">
+					<div class="row">
+						<div class="col-sm">
+							<form:input class="form-control" type="date"
+								path="dateStartSearch" />
+						</div>
+						<div class="col-sm">
+							<form:input class="form-control" type="date"
+								path="dateFinishSearch" />
+						</div>
+						<div class="col-sm">
+							<form:select path="typeReqest">
+								<form:options items="${objectTypes}" itemValue="value" />
+							</form:select>
+						</div>
+					</div>
+					<div class="row align-items-center" style="margin-top: 10px">
+					<div class="col-sm">
+						<input type="submit" value="Сформировать сводку" />
+					</div>
+					</div>
+				</form:form>
 			</div>
 		</div>
 	</div>

@@ -1,9 +1,12 @@
 package com.berzenin.app.web.controller;
 
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +17,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.berzenin.app.model.Photo;
-import com.berzenin.app.model.TypeReqest;
+import com.berzenin.app.web.dto.TypeReqest;
+import com.berzenin.app.service.controller.MerchService;
 import com.berzenin.app.service.controller.SelectionsService;
 import com.berzenin.app.web.dto.SelectionsRequest;
 
 @Controller
 @RequestMapping(value="/reports")
 public class SelectionsViewController extends GenericViewControllerImpl<Photo, SelectionsService> {
+	
+	@Autowired
+	private MerchService merchService;
 	
 	public 	SelectionsViewController(SelectionsService service) {
 		page = "reports";
@@ -45,8 +52,30 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 			@ModelAttribute("requestFor") @Valid SelectionsRequest req,
 			BindingResult result, 
 			Model model) {
-		System.out.println("start: ");
-		return page;		
+		if (result.hasErrors() || !this.badDatePeriod(req.getDateStartSearch(), req.getDateFinishSearch())) {
+			model.addAttribute("message", "Обратите внимание на период между датами запроса(не более 30 дней)");
+			model.addAttribute("page", page);
+			model.addAttribute("objectTypes", TypeReqest.values());
+			return page;
+		}
+		if (req.getTypeReqest().equals(TypeReqest.MERCH.getValue())) {
+			model.addAttribute("page", "report_merch_object");
+			List<LocalDate> dates = service.getDatesBetweenTwoDates(req.getDateStartSearch(), req.getDateFinishSearch());
+			model.addAttribute("listOfDates", dates);
+			model.addAttribute("listOfMerchs", merchService.findAll());
+			return "report_merch_object";		
+		}
+		model.addAttribute("page", page);
+		model.addAttribute("objectTypes", TypeReqest.values());
+		return page;
+	}
+	
+	private boolean badDatePeriod (LocalDate startDate, LocalDate finishDate) {
+		long p2 = ChronoUnit.DAYS.between(startDate, finishDate);		
+		if (p2>0 && p2<=30) {
+			return true;
+		}
+		return false;
 	}
 
 //	@RequestMapping(value = "/createRequest/student", method = RequestMethod.POST)

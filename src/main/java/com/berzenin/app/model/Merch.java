@@ -1,5 +1,8 @@
 package com.berzenin.app.model;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -49,7 +52,7 @@ public class Merch {
 	
 	@OneToMany(mappedBy="merch", fetch = FetchType.LAZY)
 	@Column(name = "users_photos")
-	private Set<Photo> photos;
+	private List<Photo> photos;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(

@@ -14,15 +14,24 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"objectPlace", "merch"})
 @ToString(exclude = {"objectPlace", "merch"})
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Photo {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,12 +42,13 @@ public class Photo {
 	private String name;
 
 	@NotNull
-	@Column(name = "data", nullable = false)
-	private LocalDate data;
+	@Column(name = "date", nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate date;
 	
-	@NotNull
-	@Column(name = "time", nullable = false)
-	private LocalTime time;
+//	@NotNull
+//	@Column(name = "time", nullable = false)
+//	private LocalTime time;
 	
 	@NotNull
 	@Size(min=1, max=100)

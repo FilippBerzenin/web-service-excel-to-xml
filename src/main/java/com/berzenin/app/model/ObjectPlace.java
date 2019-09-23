@@ -1,5 +1,8 @@
 package com.berzenin.app.model;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,7 +37,7 @@ public class ObjectPlace {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="objectPlace")
 	@Column(name = "objects_photos")
-	private Set<Photo> photos;
+	private List<Photo> photos;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "objectPlace")
 	private Set<Merch> merch;

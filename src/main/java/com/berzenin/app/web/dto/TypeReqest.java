@@ -1,4 +1,4 @@
-package com.berzenin.app.model;
+package com.berzenin.app.web.dto;
 
 public enum TypeReqest {
 	
