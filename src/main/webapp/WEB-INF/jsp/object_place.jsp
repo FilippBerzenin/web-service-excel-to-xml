@@ -31,39 +31,41 @@
 	<div class="jumbotron text-center" style="margin-bottom: 0">
 		<h1>Logo</h1>
 	</div>
-	
+
 	<div class="container" align="center" style="margin-top: 30px">
-			<h1>Создание и отображение объекта </h1>
+		<h1>Создание и отображение объекта</h1>
 		<div class="row align-items-center">
 			<div class="col-sm-6">
-			<h2>Список объектов:</h2>
-			<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>#</th>
-					<!-- <th>ID</th> -->
-					<th>Object name</th>
-					<!-- <th>Objects photo</th> -->
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="object_place" items="${listOfEntites}" varStatus="counter">
-					<tr>
-						<td>${counter.count}</td>
-						<%-- <td>${object_place.id}</td> --%>
-						<td>${object_place.name}</td>
-						<%-- <td>${object_place.photos}</td> --%>
-						<td>
-							<form action="${prefix}/object_place/delete/${object_place.id}" method="post">
-								<input type="submit" value="delete"
-										onclick="if (confirm('Are you sure you want to delete ${object_place.name}?')) form.action='${prefix}/object_place/delete/${object_place.id}'; else return false;" />
-							</form>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				<h2>Список объектов:</h2>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<!-- <th>ID</th> -->
+							<th>Object name</th>
+							<!-- <th>Objects photo</th> -->
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="object_place" items="${listOfEntites}"
+							varStatus="counter">
+							<tr>
+								<td>${counter.count}</td>
+								<%-- <td>${object_place.id}</td> --%>
+								<td>${object_place.name}</td>
+								<%-- <td>${object_place.photos}</td> --%>
+								<td>
+									<form action="${prefix}/object_place/delete/${object_place.id}"
+										method="post">
+										<input type="submit" value="delete"
+											onclick="if (confirm('Are you sure you want to delete ${object_place.name}?')) form.action='${prefix}/object_place/delete/${object_place.id}'; else return false;" />
+									</form>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 			<div class="col-sm-6">
 				<div>
@@ -81,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-	</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -11,5 +11,9 @@ public class MerchService extends GenericServiceImpl<Merch, MerchRepository> {
 	public MerchService(MerchRepository repository) {
 		super(repository);
 	}
+	
+	public Merch getMercByLoginAndPass(String login, String pass) {
+		return repository.findByLoginAndPass(login, pass).get();
+	}
 
 }

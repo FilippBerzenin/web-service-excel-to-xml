@@ -3,10 +3,13 @@ package com.berzenin.app.web.controller;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,6 +100,20 @@ public class MerchInnerViewController extends GenericViewControllerImpl<Merch, M
 			this.setModelAttributeWhenthrowException(e, model);
 			return page;
 		}
+	}
+	
+	@Override
+	public String update(@Valid Merch entity, BindingResult result, Model model) {
+		Set<ObjectPlace> objectsList = objectPlaceService.findAll().stream()
+				.collect(Collectors.toSet());
+		model.addAttribute("objectsList", objectsList);
+		Merch oldMerch = service.findById(entity.getId());
+		oldMerch.setName(entity.getName());
+		oldMerch.setLogin(entity.getLogin());
+		oldMerch.setPass(entity.getPass());
+		model.addAttribute("entity", oldMerch);
+		model.addAttribute("page", "merch_inner");
+		return super.update(oldMerch, result, model);
 	}
 
 }

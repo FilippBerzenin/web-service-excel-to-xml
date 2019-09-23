@@ -74,9 +74,7 @@ public class PhotoController extends GenericControllerImpl<Photo, PhotoService> 
 				.date(localDate)
 				.objectPlace(objectService.findById(object_id))
 				.merch(merchService.findById(merch_Id))
-				.build();
-				
-				
+				.build();				
     	return service.add(photo, file).toString();
 	}
 }
