@@ -1,21 +1,17 @@
 package com.berzenin.app.web.restсontroller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.berzenin.app.model.Merch;
-import com.berzenin.app.model.ObjectPlace;
 import com.berzenin.app.service.controller.MerchService;
 
 import lombok.Data;
@@ -33,14 +29,25 @@ public class MerchController extends GenericControllerImpl<Merch, MerchService> 
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(value = "/authentication")
-	public List<Shop> authorizationMerchAndGetShops(
+	public boolean authorizationMerchAndGetShops(
 			@RequestParam("login") String login,
 			@RequestParam("pass") String pass) {
-		Merch merch = service.getMercByLoginAndPass(login, pass);
-		List<Shop> shops = new ArrayList<>();
-		for (ObjectPlace shop: merch.getObjectPlace()) {
-			shops.add(new Shop(shop.getId(), shop.getName()));
-		}
+		if (service.getMercByLoginAndPass(login, pass).isPresent()) {
+			return true;
+		} else return false;
+	}
+	
+	@GetMapping(
+			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, 
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(value = "/shops")
+	public List<Shop> getShopsFromMerch(
+			@RequestParam("id") long id_merch) {
+		List<Shop> shops = service.getShopsFromMerch(id_merch).get().stream()
+				.map(object -> 
+					new Shop(object.getId(), object.getName())
+				).collect(Collectors.toList());
 		return shops;
 	}
 	
