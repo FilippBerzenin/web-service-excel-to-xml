@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,10 +52,12 @@ public class Merch {
 	@Size (min=1, max=100)
 	private String pass;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="merch", fetch = FetchType.LAZY)
 	@Column(name = "users_photos")
 	private List<Photo> photos;
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			  name = "merch_object", 

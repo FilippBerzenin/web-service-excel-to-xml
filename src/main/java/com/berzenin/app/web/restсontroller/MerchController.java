@@ -1,6 +1,7 @@
 package com.berzenin.app.web.restсontroller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -29,12 +30,26 @@ public class MerchController extends GenericControllerImpl<Merch, MerchService> 
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(value = "/authentication")
-	public boolean authorizationMerchAndGetShops(
+	public boolean authorizationMerch(
 			@RequestParam("login") String login,
 			@RequestParam("pass") String pass) {
 		if (service.getMercByLoginAndPass(login, pass).isPresent()) {
 			return true;
 		} else return false;
+	}
+	
+	@GetMapping(
+			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, 
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@RequestMapping(value = "/get")
+	public Merch getMerch(
+			@RequestParam("login") String login,
+			@RequestParam("pass") String pass) {
+		Optional<Merch> merch = service.getMercByLoginAndPass(login, pass);
+		if (merch.isPresent()) {
+			return merch.get();
+		} else return merch.get(); 
 	}
 	
 	@GetMapping(

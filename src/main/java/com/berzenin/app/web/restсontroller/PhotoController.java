@@ -70,7 +70,7 @@ public class PhotoController extends GenericControllerImpl<Photo, PhotoService> 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = LocalDate.parse(date, formatter);
 		Photo photo = Photo.builder()
-				.name(file.getName())
+				.name(file.getOriginalFilename())
 				.date(localDate)
 				.objectPlace(objectService.findById(object_id))
 				.merch(merchService.findById(merch_Id))

@@ -23,7 +23,8 @@ public class PhotoService extends GenericServiceImpl<Photo, PhotoRepository> {
 		super(repository);
 	}
 	
-	LocalFilesController controller;
+	@Autowired
+	AmazonFilesController controller;
 
 	public Optional<Photo> add(MultipartFile file) {
 		Photo photo = null;
@@ -44,7 +45,7 @@ public class PhotoService extends GenericServiceImpl<Photo, PhotoRepository> {
 	
 	public Optional<Photo> add(Photo photo, MultipartFile file) {
 		try {
-			photo.setPathFoPhoto(LocalFilesController.copyFileForlocalDirectory(file).get().toString());
+			photo.setPathFoPhoto(controller.copyFileForlocalDirectory(file).get().toString());
 			repository.save(photo);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
