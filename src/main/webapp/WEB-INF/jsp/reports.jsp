@@ -42,6 +42,9 @@
 	</div>
 
 	<div class="container" align="center" style="margin-top: 30px">
+			<div align="left">
+			<a href="${prefix}/">Меню</a>
+		</div>
 		<div class="align-items-center">
 			<h3>Формирование сводки</h3>
 			<c:if test="${not empty message}">
@@ -52,6 +55,7 @@
 			<div>
 				<form:form action="${prefix}/reports/createRequest"
 					modelAttribute="requestFor" method="post">
+					<input type="hidden" name="_csrf" value="${_csrf.token}" />
 					<div class="row">
 						<div class="col-sm">
 							<form:input class="form-control" type="date"

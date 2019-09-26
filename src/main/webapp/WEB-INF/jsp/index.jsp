@@ -34,16 +34,19 @@
 		<div class="row align-items-center">
 			<div class="col-sm-4">
 				<form action="${prefix}/object_place/show/all" method="GET">
+				<input type="hidden" name="_csrf" value="${_csrf.token}" />
 					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить объект</button>
 				</form>
 			</div>
 			<div class="col-sm-4">
 				<form action="${prefix}/merch/show/all" method="GET">
+				<input type="hidden" name="_csrf" value="${_csrf.token}" />
 					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить мерча</button>
 				</form>
 			</div>
 			<div class="col-sm-4">
 				<form action="${prefix}/reports" method="GET">
+				<input type="hidden" name="_csrf" value="${_csrf.token}" />
 					<button type="submit" class="btn btn-outline-primary btn-lg">Показать сводку</button>
 				</form>
 			</div>

@@ -32,12 +32,16 @@
 	</div>
 
 	<div class="container" align="center" style="margin-top: 30px">
+		<div align="left">
+			<a href="${prefix}/">Меню</a>
+		</div>
 		<div class="row align-items-center">
 			<!--Add new merchs  -->
 			<div class="col-sm-6">
 				<div class="form-group">
 					<form:form method="post" action="${prefix}/${page}/update/"
 						modelAttribute="entity">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
 						<table>
 							<tr>
 								<td><h4 align="left">Id: ${merch.id}</h4></td>
@@ -67,6 +71,7 @@
 			<div>
 				<form action="${prefix}/merch_inner/addObject/${merch.id}"
 					method="post">
+					<input type="hidden" name="_csrf" value="${_csrf.token}" />
 					Select a Category:&nbsp; <select name="object">
 						<c:forEach items="${objectsList}" var="object">
 							<option value="${object.id}">${object.name}</option>
@@ -89,6 +94,7 @@
 							<td>
 								<form action="${prefix}/${page}/removeObject/${merch.id}/${objectPlace.id}"
 									method="post">
+									<input type="hidden" name="_csrf" value="${_csrf.token}" />
 									<input type="submit" value="delete"
 										onclick="if (confirm('Are you sure you want to delete ${objectPlace.name} from ${merch.name}?')) form.action='${prefix}/${page}/removeObject/${merch.id}/${objectPlace.id}'; else return false;" />
 								</form>

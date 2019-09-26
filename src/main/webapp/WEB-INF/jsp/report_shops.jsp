@@ -32,6 +32,9 @@
 	</div>
 
 	<div class="container" align="center" style="margin-top: 30px">
+		<div align="left">
+			<a href="${prefix}/">Меню</a>
+		</div>
 		<h1>Сводка по магазинам</h1>
 		<div class="row align-items-center">
 			<!--List of merchs  -->
@@ -53,6 +56,7 @@
 									<c:if test="${fn:length(photo.value) > 0}">
 										<td class="font-weight-bold" align="center">
 											<form action="${prefix}/reports/shop_report/" method="post">
+												<input type="hidden" name="_csrf" value="${_csrf.token}" />
 												<input type="hidden" name="photos" value="<c:out value="${photo.value}"/>"/>
 												<input class="img-fluid" type="image" alt="Photo"
 													src="<c:url value="${photo.value[0].pathFoPhoto}"/>"

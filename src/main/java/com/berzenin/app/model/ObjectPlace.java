@@ -1,8 +1,6 @@
 package com.berzenin.app.model;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -37,7 +35,7 @@ public class ObjectPlace {
 	@Size (min=1, max=100)
 	private String name;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="objectPlace")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="objectPlace", cascade = CascadeType.ALL)
 	@Column(name = "objects_photos")
 	@JsonIgnore
 	private List<Photo> photos;

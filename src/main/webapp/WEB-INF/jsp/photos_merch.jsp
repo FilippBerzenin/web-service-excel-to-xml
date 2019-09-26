@@ -34,6 +34,9 @@
 	</div>
 
 	<div class="container" style="margin-top: 30px">
+		<div align="left">
+			<a href="${prefix}/">Меню</a>
+		</div>
 		<div class="row">
 			<div class="col-sm-8">
 			<div align="center">
@@ -49,6 +52,7 @@
 							<c:if test="${iter.count/2>0}">
 								<div class="col-sm-12 my-2">
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
+										<input type="hidden" name="_csrf" value="${_csrf.token}" />
 										<input type="hidden" name="photos" value="<c:out value="${potos_list}"/>"/>
 										<input class="img-fluid" type="image" alt="Photo"
 											src="<c:url value="${photo.pathFoPhoto}"/>"/>
@@ -63,6 +67,7 @@
 							<c:if test="${iter.count/2>0}">
 								<div class="col-sm-12 my-2">
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
+										<input type="hidden" name="_csrf" value="${_csrf.token}" />
 										<input type="hidden" name="photos" value="<c:out value="${potos_list}"/>"/>
 										<input class="img-fluid" type="image" alt="Photo"
 											src="<c:url value="${photo.pathFoPhoto}"/>"/>

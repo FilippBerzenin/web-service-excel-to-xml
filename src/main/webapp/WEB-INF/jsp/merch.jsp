@@ -50,6 +50,7 @@
 						<td>
 							<form action="${prefix}/merch_inner/show/${merch.id}"
 								method="get">
+								<input type="hidden" name="_csrf" value="${_csrf.token}" />
 								<button type="submit" name="update" value="update">Update</button>
 							</form>	
 						</td>

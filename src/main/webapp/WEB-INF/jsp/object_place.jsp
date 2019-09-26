@@ -31,8 +31,10 @@
 	<div class="jumbotron text-center" style="margin-bottom: 0">
 		<h1>Logo</h1>
 	</div>
-
 	<div class="container" align="center" style="margin-top: 30px">
+		<div align="left">
+			<a href="${prefix}/">Меню</a>
+		</div>
 		<h1>Создание и отображение объекта</h1>
 		<div class="row align-items-center">
 			<div class="col-sm-6">
@@ -58,6 +60,7 @@
 								<td>
 									<form action="${prefix}/object_place/delete/${object_place.id}"
 										method="post">
+										<input type="hidden" name="_csrf" value="${_csrf.token}" />
 										<input type="submit" value="delete"
 											onclick="if (confirm('Are you sure you want to delete ${object_place.name}?')) form.action='${prefix}/object_place/delete/${object_place.id}'; else return false;" />
 									</form>
@@ -72,6 +75,7 @@
 					<div class="form-group">
 						<form:form method="post" action="${prefix}/object_place/create/"
 							modelAttribute="entityFor">
+							<input type="hidden" name="_csrf" value="${_csrf.token}" />
 							<table>
 								<tr>
 									<td><font color="red"><form:errors path="name" /></font></td>
