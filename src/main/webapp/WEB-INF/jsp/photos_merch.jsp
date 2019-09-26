@@ -34,11 +34,12 @@
 	</div>
 
 	<div class="container" style="margin-top: 30px">
-		<h1>Отчет ${central_image.name}</h1>
 		<div class="row">
 			<div class="col-sm-8">
+			<div align="center">
+				<h1>Отчет ${central_image.merch.name}, ${central_image.objectPlace.name}, ${central_image.date}</h1>
+			</div>
 				<img src="${central_image.pathFoPhoto}" class="img-fluid">
-
 			</div>
 			<div class="col-sm-4" style="height: 450px; overflow-y: scroll;">
 				<div class="row">
@@ -47,9 +48,11 @@
 							varStatus="iter">
 							<c:if test="${iter.count/2>0}">
 								<div class="col-sm-12 my-2">
-									<input class="img-fluid" type="image" alt="Photo"
-										src="${photo.pathFoPhoto}"
-										onclick="<c:set var="central_image" value="${photo}"/>" />
+									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
+										<input type="hidden" name="photos" value="<c:out value="${potos_list}"/>"/>
+										<input class="img-fluid" type="image" alt="Photo"
+											src="<c:url value="${photo.pathFoPhoto}"/>"/>
+									</form>
 								</div>
 							</c:if>
 						</c:forEach>
@@ -59,9 +62,11 @@
 							varStatus="iter">
 							<c:if test="${iter.count/2>0}">
 								<div class="col-sm-12 my-2">
-									<input class="img-fluid" type="image" alt="Photo"
-										src="${photo.pathFoPhoto}"
-										onclick="<c:set var="central_image" value="${photo}"/>" />
+									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
+										<input type="hidden" name="photos" value="<c:out value="${potos_list}"/>"/>
+										<input class="img-fluid" type="image" alt="Photo"
+											src="<c:url value="${photo.pathFoPhoto}"/>"/>
+									</form>									
 								</div>
 							</c:if>
 						</c:forEach>

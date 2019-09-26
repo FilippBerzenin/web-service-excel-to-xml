@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -22,18 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.berzenin.app.model.Photo;
 import com.berzenin.app.service.controller.MerchService;
+import com.berzenin.app.service.controller.ObjectPlaceService;
 import com.berzenin.app.service.controller.PhotoService;
 import com.berzenin.app.service.controller.SelectionsService;
 import com.berzenin.app.web.dto.MerchWithPhoto;
 import com.berzenin.app.web.dto.SelectionsRequest;
+import com.berzenin.app.web.dto.ShopsWithPhoto;
 import com.berzenin.app.web.dto.TypeReqest;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Controller
 @RequestMapping(value = "/reports")
@@ -41,6 +38,9 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 
 	@Autowired
 	private MerchService merchService;
+	
+	@Autowired
+	private ObjectPlaceService shopService;
 
 	@Autowired
 	private PhotoService photoService;
@@ -74,8 +74,61 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 		}
 		model.addAttribute("potos_list", photos);
 		model.addAttribute("central_image", photos.get(0));
+		model.addAttribute("page", "photos_merch");
 		
 		return "photos_merch";
+	}
+	
+	@RequestMapping(value = "/merch_report/{photo_id}", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public String getPhotoForMerch(
+			@RequestParam("photos") String photo,
+			@PathVariable("photo_id") long photo_id,			
+			Model model) {
+		List<Photo> photos = new ArrayList<>();
+		Pattern pattern = Pattern.compile("id=.+?\\D");
+		Matcher matcher = pattern.matcher(photo);
+		while (matcher.find()) {
+			long i = Long.parseLong(photo.substring(matcher.start() + 3, matcher.end() - 1));
+			photos.add(photoService.findById(i));		}
+		model.addAttribute("potos_list", photos);
+		model.addAttribute("central_image", photoService.findById(photo_id));
+		model.addAttribute("page", "photos_merch");		
+		return "photos_merch";
+	}
+	
+	@RequestMapping(value = "/shop_report/{photo_id}", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public String getPhotoForShop(
+			@RequestParam("photos") String photo,
+			@PathVariable("photo_id") long photo_id,			
+			Model model) {
+		List<Photo> photos = new ArrayList<>();
+		Pattern pattern = Pattern.compile("id=.+?\\D");
+		Matcher matcher = pattern.matcher(photo);
+		while (matcher.find()) {
+			long i = Long.parseLong(photo.substring(matcher.start() + 3, matcher.end() - 1));
+			photos.add(photoService.findById(i));		}
+		model.addAttribute("potos_list", photos);
+		model.addAttribute("central_image", photoService.findById(photo_id));
+		model.addAttribute("page", "photos_shop");		
+		return "photos_shop";
+	}
+	
+	@RequestMapping(value = "/shop_report", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public String getRezultForShop(@RequestParam("photos") String photo, Model model) {
+		List<Photo> photos = new ArrayList<>();
+		Pattern pattern = Pattern.compile("id=.+?\\D");
+		Matcher matcher = pattern.matcher(photo);
+		while (matcher.find()) {
+			long i = Long.parseLong(photo.substring(matcher.start() + 3, matcher.end() - 1));
+			photos.add(photoService.findById(i));
+		}
+		model.addAttribute("potos_list", photos);
+		model.addAttribute("central_image", photos.get(0));
+		
+		return "photos_shop";
 	}
 
 	@RequestMapping(value = "/createRequest", method = RequestMethod.POST)
@@ -99,6 +152,17 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 			model.addAttribute("listOfMerchsPhoto", merchs);
 			return "report_merch";
 		}
+		if (req.getTypeReqest().equals(TypeReqest.SHOP.getValue())) {
+			model.addAttribute("page", "report_shop");
+			List<LocalDate> dates = service.getDatesBetweenTwoDates(req.getDateStartSearch(),
+					req.getDateFinishSearch());
+			List<ShopsWithPhoto> shops = shopService.findAll().stream()
+					.map(m -> new ShopsWithPhoto(m.getName(), shopService.getPhotosByDates(m, dates)))
+					.collect(Collectors.toList());
+			model.addAttribute("listOfDates", dates);
+			model.addAttribute("listOfShopsPhoto", shops);
+			return "report_shops";
+		}
 		model.addAttribute("page", page);
 		model.addAttribute("objectTypes", TypeReqest.values());
 		return page;
@@ -111,46 +175,4 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 		}
 		return false;
 	}
-
-//	@RequestMapping(value = "/createRequest/student", method = RequestMethod.POST)
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public String createRequestForStudent (
-//	@ModelAttribute("entityFor") @Valid SelectionsRequest entity,
-//	BindingResult result, 
-//	Model model) {
-//		if (result.hasErrors()) {
-//			message = "Error";
-//			setModelAttribute(model);
-//			return page;
-//		} try {
-//			entites = service.findAllExercisesBetweenDatesForStudent(entity);
-//			message = "Search was finded";
-//			setModelAttribute(model);
-//			return page;
-//		} catch (RuntimeException e) {
-//			this.setModelAttributeWhenthrowException(e, model);
-//			return page;
-//		}		
-//	}
-//	
-//	@RequestMapping(value = "/createRequest/teacher", method = RequestMethod.POST)
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public String createRequestForteacher (
-//	@ModelAttribute("entityFor") @Valid SelectionsRequest entity,
-//	BindingResult result, 
-//	Model model) {
-//		if (result.hasErrors()) {
-//			message = "Error";
-//			setModelAttribute(model);
-//			return page;
-//		} try {
-//			entites = service.findAllExercisesBetweenDatesForTeacher(entity);
-//			message = "Search was finded";
-//			setModelAttribute(model);
-//			return page;
-//		} catch (RuntimeException e) {
-//			this.setModelAttributeWhenthrowException(e, model);
-//			return page;
-//		}		
-//	}
 }
