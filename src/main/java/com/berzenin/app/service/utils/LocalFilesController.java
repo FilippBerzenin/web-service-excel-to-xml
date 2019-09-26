@@ -1,8 +1,6 @@
 package com.berzenin.app.service.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,18 +9,22 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.berzenin.app.model.Photo;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Service
 public class LocalFilesController {
 	
 	@Getter
-	protected static final String pathToResource = "..\\Server-for-photo\\src\\main\\resources\\";
+	protected static final String pathToResource = "..\\Server-for-photo\\src\\main\\webapp\\image";
 	
-	public static Optional<Path> copyFileForlocalDirectory(MultipartFile file) {
+	public Optional<Path> copyFileForlocalDirectory(MultipartFile file) {
 		Path copied = Paths.get(pathToResource, file.getOriginalFilename());
 		if (Files.notExists(copied)) {
 			Files.exists(copied);
@@ -30,6 +32,28 @@ public class LocalFilesController {
 		try {
 			Files.copy(file.getInputStream(), copied, StandardCopyOption.REPLACE_EXISTING);
 			return Optional.of(copied);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return Optional.empty();
+	}
+	
+	public Optional<Path> getPathForPhoto(Photo photo, MultipartFile file) {
+		try {
+		Path dir = Paths.get(pathToResource, 
+				photo.getDate().toString(), 
+				photo.getMerch().getName(), 
+				photo.getObjectPlace().getName());
+				
+		if (Files.notExists(dir)) {
+			Files.createDirectories(dir);
+		}
+		else if (Files.exists(Paths.get(dir.toString(), file.getOriginalFilename()))) {
+				Files.delete(Paths.get(dir.toString(), file.getOriginalFilename()));
+			}
+			Path f =  Paths.get(dir.toString(), file.getOriginalFilename());
+			Files.copy(file.getInputStream(), f, StandardCopyOption.REPLACE_EXISTING);
+			return Optional.of(f);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

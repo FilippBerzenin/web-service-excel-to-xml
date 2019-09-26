@@ -1,8 +1,6 @@
 package com.berzenin.app.model;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;

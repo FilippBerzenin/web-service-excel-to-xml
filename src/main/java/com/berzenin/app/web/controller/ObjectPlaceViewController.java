@@ -38,7 +38,10 @@ public class ObjectPlaceViewController extends GenericViewControllerImpl<ObjectP
 
 	@RequestMapping(name = "/created/", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public String addNewObjectPlace(@ModelAttribute("entity") ObjectPlace entity, BindingResult result, Model model) {
+	public String addNewObjectPlace(
+			@ModelAttribute("entity") ObjectPlace entity, 
+			BindingResult result, 
+			Model model) {
 		if (result.hasErrors()) {
 			message = "Something wrong with parameters";
 			setModelAttribute(model);

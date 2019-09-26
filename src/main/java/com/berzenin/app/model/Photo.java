@@ -1,7 +1,7 @@
 package com.berzenin.app.model;
 
+import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,14 +48,15 @@ public class Photo {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	
-//	@NotNull
-//	@Column(name = "time", nullable = false)
-//	private LocalTime time;
-	
 	@NotNull
 	@Size(min=1, max=100)
 	@Column(name = "url_photo", nullable = false)
+	@JsonIgnore
 	private String pathFoPhoto;
+	
+	@NotNull
+	@JsonIgnore
+	private File file;
 	
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="objects_photos")

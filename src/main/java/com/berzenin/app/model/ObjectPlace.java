@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,8 +39,10 @@ public class ObjectPlace {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="objectPlace")
 	@Column(name = "objects_photos")
+	@JsonIgnore
 	private List<Photo> photos;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "objectPlace")
+	@JsonIgnore
 	private Set<Merch> merch;
 }
