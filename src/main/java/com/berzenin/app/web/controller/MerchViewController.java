@@ -5,6 +5,7 @@ import javax.annotation.security.PermitAll;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.berzenin.app.model.Merch;
@@ -25,7 +26,9 @@ public class MerchViewController extends GenericViewControllerImpl<Merch, MerchS
 	
 	@PermitAll
 	@Override
-	public String deleteEntity(Long id, Model model) {
+	public String deleteEntity(
+			@PathVariable("id") Long id,
+			Model model) {
 		// TODO Auto-generated method stub
 		return super.deleteEntity(id, model);
 	}

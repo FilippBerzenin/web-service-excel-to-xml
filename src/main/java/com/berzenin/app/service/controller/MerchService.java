@@ -62,6 +62,7 @@ public class MerchService extends GenericServiceImpl<Merch, MerchRepository> {
 	
 	@Override
 	public void removeById(Long id) {
+		System.out.println(id);
 		Merch entity = this.findById(id);
 		Merch arhiv;
 		if (this.findByName("arhiv").isPresent()) {
