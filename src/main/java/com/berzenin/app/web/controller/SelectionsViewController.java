@@ -1,9 +1,7 @@
 package com.berzenin.app.web.controller;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -23,7 +21,6 @@ import com.berzenin.app.service.controller.MerchService;
 import com.berzenin.app.service.controller.ObjectPlaceService;
 import com.berzenin.app.service.controller.SelectionsService;
 import com.berzenin.app.web.dto.ChangeDayStartReport;
-import com.berzenin.app.web.dto.MerchReports;
 import com.berzenin.app.web.dto.MerchWithPhoto;
 import com.berzenin.app.web.dto.SelectionsRequest;
 import com.berzenin.app.web.dto.ShopsWithPhoto;
@@ -118,7 +115,7 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(req.getDateStartSearch());
 			
 			List<MerchWithPhoto> merchs = merchService.findAll().stream()
-					.map(m -> new MerchWithPhoto(m.getName(), merchService.getPhotosByDates(m, dates)))
+					.map(m -> new MerchWithPhoto(m.getId(), m.getName(), merchService.getPhotosByDates(m, dates)))
 					.collect(Collectors.toList());
 			
 			model.addAttribute("type_request", req.getTypeReqest());
@@ -133,7 +130,7 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(req.getDateStartSearch());
 			
 			List<ShopsWithPhoto> shops = shopService.findAll().stream()
-					.map(m -> new ShopsWithPhoto(m.getName(), shopService.getPhotosByDates(m, dates)))
+					.map(m -> new ShopsWithPhoto(m.getId(), m.getName(), shopService.getPhotosByDates(m, dates)))
 					.collect(Collectors.toList());
 			
 			
@@ -175,7 +172,7 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 		if (req.getTypeReqest().equals(TypeReqest.MERCH.getValue())) {
 			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(newDate);
 			List<MerchWithPhoto> merchs = merchService.findAll().stream()
-					.map(m -> new MerchWithPhoto(m.getName(), merchService.getPhotosByDates(m, dates)))
+					.map(m -> new MerchWithPhoto(m.getId(), m.getName(), merchService.getPhotosByDates(m, dates)))
 					.collect(Collectors.toList());
 			model.addAttribute("type_request", req.getTypeReqest());
 			model.addAttribute("listOfDates", dates);
@@ -187,7 +184,7 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 		if (req.getTypeReqest().equals(TypeReqest.SHOP.getValue())) {
 			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(newDate);
 			List<ShopsWithPhoto> shops = shopService.findAll().stream()
-					.map(m -> new ShopsWithPhoto(m.getName(), shopService.getPhotosByDates(m, dates)))
+					.map(m -> new ShopsWithPhoto(m.getId(), m.getName(), shopService.getPhotosByDates(m, dates)))
 					.collect(Collectors.toList());
 			model.addAttribute("type_request", req.getTypeReqest());
 			model.addAttribute("listOfDates", dates);

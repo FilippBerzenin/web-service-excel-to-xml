@@ -16,11 +16,12 @@ public class MerchWithPhoto {
 		
 		private String name;
 		private Map<LocalDate, Map<ObjectPlace, List<Photo>>> photos;
-		private long id;
+		private long merch_id;
 		
-		public MerchWithPhoto(String name, Map<LocalDate, Map<ObjectPlace, List<Photo>>> photos) {
+		public MerchWithPhoto(Long merch_id, String name, Map<LocalDate, Map<ObjectPlace, List<Photo>>> photos) {
 			this.name = name;
 			this.photos = photos;
+			this.merch_id = merch_id;
 		}
 
 }

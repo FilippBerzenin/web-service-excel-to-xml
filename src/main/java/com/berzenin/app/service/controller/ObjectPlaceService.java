@@ -2,6 +2,7 @@ package com.berzenin.app.service.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,15 +31,37 @@ public class ObjectPlaceService extends GenericServiceImpl<ObjectPlace, ObjectPl
 	@Autowired
 	private MerchService merchService;
 	
-	public Map<LocalDate, List<Photo>> getPhotosByDates(ObjectPlace shops, List<LocalDate> dates) {
-		Map<LocalDate, List<Photo>> photoBydates = shops.getPhotos().stream()
-				.filter(photo -> dates.contains(photo.getDate()))
-				.collect(Collectors.groupingBy(Photo::getDate,
-			        Collectors.mapping(
-			        		photo -> photoService.findById(photo.getId()), Collectors.toList())));
+//	public Map<LocalDate, List<Photo>> getPhotosByDates(ObjectPlace shops, List<LocalDate> dates) {
+//		Map<LocalDate, List<Photo>> photoBydates = shops.getPhotos().stream()
+//				.filter(photo -> dates.contains(photo.getDate()))
+//				.collect(Collectors.groupingBy(Photo::getDate,
+//			        Collectors.mapping(
+//			        		photo -> photoService.findById(photo.getId()), Collectors.toList())));
+//		for (LocalDate date: dates) {
+//			if (!photoBydates.containsKey(date)) {
+//				photoBydates.put(date, new ArrayList<Photo>());
+//			}
+//		}
+//		SortedMap sortedMap = new TreeMap();
+//		sortedMap.putAll(photoBydates);
+//		return sortedMap;
+//	}
+	
+	public Map<LocalDate, Map<Merch, List<Photo>>> getPhotosByDates(ObjectPlace shops, List<LocalDate> dates) {
+		Map<LocalDate, Map<Merch, List<Photo>>> photoBydates = new HashMap<>();
+		
+		for(LocalDate date: dates) {
+			Map<Merch, List<Photo>> photoByObject = shops.getPhotos().stream()
+				.filter(photo -> photo.getDate().equals(date))
+				.collect(Collectors.groupingBy(Photo::getMerch,
+				   Collectors.mapping(
+				       photo -> photoService.findById(photo.getId()), Collectors.toList())));
+			
+			photoBydates.put(date, photoByObject);
+		}
 		for (LocalDate date: dates) {
 			if (!photoBydates.containsKey(date)) {
-				photoBydates.put(date, new ArrayList<Photo>());
+				photoBydates.put(date, null);
 			}
 		}
 		SortedMap sortedMap = new TreeMap();

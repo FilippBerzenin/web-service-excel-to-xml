@@ -64,11 +64,6 @@ public class MerchService extends GenericServiceImpl<Merch, MerchRepository> {
 		return sortedMap;
 	}
 	
-	private Map<ObjectPlace, List<Photo>> groupingByObject () {
-		return null;
-		
-	}
-	
 //	public Map<LocalDate, List<Photo>> getPhotosByDates(Merch merch, List<LocalDate> dates) {
 //		Map<LocalDate, List<Photo>> photoBydates = merch.getPhotos().stream()
 //				.filter(photo -> dates.contains(photo.getDate()))
