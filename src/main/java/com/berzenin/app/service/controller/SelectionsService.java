@@ -27,9 +27,14 @@ public class SelectionsService extends GenericServiceImpl<Photo, PhotoRepository
 	      .collect(Collectors.toList());	
 	    return list;
 	}
+	
+	public List<LocalDate> getDatesBetweenDatePlus6Days(LocalDate dateStartSearch) {
+	    long numOfDaysBetween = ChronoUnit.DAYS.between(dateStartSearch, dateStartSearch.plusDays(7));	    
+	    List<LocalDate> list =  IntStream.iterate(0, i -> i + 1)
+	      .limit(numOfDaysBetween)
+	      .mapToObj(i -> dateStartSearch.plusDays(i))
+	      .collect(Collectors.toList());	
+	    return list;
+	}
 
-//	public List<PhotosFromDatesContainer> findAllPhotosFromDatesAndMerch(List<LocalDate> dates) {
-//		repository.findByMerch_nameAndDate("fil", LocalDate.of(2019, 9, 23));
-//		return null;
-//	}
 }

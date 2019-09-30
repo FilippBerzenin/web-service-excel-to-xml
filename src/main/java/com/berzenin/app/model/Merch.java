@@ -58,6 +58,10 @@ public class Merch {
 	@Column(name = "users_photos")
 	private List<Photo> photos;
 	
+//	@JsonIgnore
+//	@OneToMany(mappedBy="merch", fetch = FetchType.LAZY)
+//	private List<Report> reports;
+	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinTable(

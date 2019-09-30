@@ -39,6 +39,14 @@ public class ObjectPlace {
 	@Size(min = 1, max = 100)
 	private String name;
 
+//	@OneToMany(
+//			fetch = FetchType.LAZY, 
+//			mappedBy = "objectPlace", 
+//			cascade = CascadeType.ALL
+//			)
+//	@JsonIgnore
+//	private List<Report> reports;
+	
 	@OneToMany(
 			fetch = FetchType.LAZY, 
 			mappedBy = "objectPlace", 

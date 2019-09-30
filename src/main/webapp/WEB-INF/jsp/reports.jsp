@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix='form' uri='http://www.springframework.org/tags/form'%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,17 +21,18 @@
 	height: 200px;
 	background: #aaa;
 }
-      .error {
-         color: #ff0000;
-      }
 
-      .errorblock {
-         color: #000;
-         background-color: #ffEEEE;
-         border: 3px solid #ff0000;
-         padding: 8px;
-         margin: 16px;
-      }
+.error {
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
 </style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
 <c:set var="page" value="${page}" />
@@ -42,43 +44,249 @@
 	</div>
 
 	<div class="container" align="center" style="margin-top: 30px">
-			<div align="left">
+		<div align="left">
 			<a href="${prefix}/">Меню</a>
 		</div>
 		<div class="align-items-center">
 			<h3>Формирование сводки</h3>
 			<c:if test="${not empty message}">
-			<br>
+				<br>
 				<div class="alert alert-success">${message}</div>
 			</c:if>
 			<br>
 			<div>
-				<form:form action="${prefix}/reports/createRequest"
+				<form:form action="${prefix}/reports/create_request_week"
 					modelAttribute="requestFor" method="post">
 					<input type="hidden" name="_csrf" value="${_csrf.token}" />
-					<div class="row">
-						<div class="col-sm">
+					<div class="row col-sm-6">
+						<div class="col-sm-8">
 							<form:input class="form-control" type="date"
 								path="dateStartSearch" />
 						</div>
-						<div class="col-sm">
-							<form:input class="form-control" type="date"
-								path="dateFinishSearch" />
-						</div>
-						<div class="col-sm">
+						<div class="col-sm-4">
 							<form:select path="typeReqest">
 								<form:options items="${objectTypes}" itemValue="value" />
 							</form:select>
 						</div>
 					</div>
 					<div class="row align-items-center" style="margin-top: 10px">
-					<div class="col-sm">
-						<input type="submit" value="Сформировать сводку" />
-					</div>
+						<div class="col-sm">
+							<input type="submit" value="Сформировать сводку" />
+						</div>
 					</div>
 				</form:form>
 			</div>
 		</div>
+		<div>
+			<c:if test="${not empty listOfMerchsPhoto}">
+				<h1>Сводка по мерчам</h1>
+				<div class="row align-items-left">
+				<div class="col-sm-2">
+ 					<form:form action="${prefix}/reports/create_request_week__change_day"
+					 method="get" modelAttribute="changedaystartreport">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
+						<form:hidden path="date" value="${listOfDates[0]}"/>
+						<form:hidden path="typeReqest" value="${type_request}"/>
+						<form:hidden path="changeDay" value="minus"/>
+						<input type="submit" value="На день назад" />
+					</form:form>
+				</div>
+				<div class="col-sm-2">
+ 					<form:form action="${prefix}/reports/create_request_week__change_day"
+					 method="get" modelAttribute="changedaystartreport">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
+						<form:hidden path="date" value="${listOfDates[0]}"/>
+						<form:hidden path="typeReqest" value="${type_request}"/>
+						<form:hidden path="changeDay" value="plus"/>
+						<input type="submit" value="На день вперед" />
+					</form:form>
+				</div>
+				<div class="col-sm-2">
+				</div>
+				</div>
+				<div class="row">
+					<!--List of merchs  -->
+					<div class="col-sm-6">
+						<table class="table table-hover table-sm">
+							<thead class="table-info">
+								<tr>
+									<th align="center">ФИО</th>
+									<c:forEach var="data" items="${listOfDates}">
+										<th align="center">"${data}"</th>
+									</c:forEach>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="merchWithPhoto" items="${listOfMerchsPhoto}">
+									<tr>
+										<td  align="center">${merchWithPhoto.name}</td>
+										<c:forEach var="photosByObjects" items="${merchWithPhoto.photos}">
+											<td>
+												<c:forEach var="photos" items="${photosByObjects.value}">
+												${photos.key}
+												</c:forEach>
+											</td>
+										
+										
+										</c:forEach>
+								</c:forEach>
+										<%-- <c:forEach var="photo" items="${merchWithPhoto.value}">
+											<c:if test="${fn:length(photo.value) > 0}">
+												<td class="font-weight-bold" align="center">
+												<div class="row">
+												<div>
+													<form action="${prefix}/reports/merch_report/"
+														method="post">
+														<input type="hidden" name="_csrf" value="${_csrf.token}" />
+														<input type="hidden" name="photos"
+															value="<c:out value="${photo.value}"/>" /> <input
+															class="img-fluid" type="image" alt="Photo"
+															src="<c:url value="${photo.value[0].pathFoPhoto}"/>"
+															value="Кол-во фото: ${fn:length(photo.value)}">
+													</form>
+												</div>
+												</div>
+											</c:if>
+											<c:if test="${fn:length(photo.value) == 0}">
+												<td align="center">Нет фото</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+								</c:forEach> --%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</c:if>
+		</div>
+		<div>
+			<c:if test="${not empty listOfShopsPhoto}">
+					<h1>Сводка по магазинам</h1>
+		<div class="row align-items-center">
+			<!--List of merchs  -->
+			<div class="col-sm-6">
+				<table class="table table-hover table-sm">
+					<thead class="table-info">
+						<tr>
+							<th align="center">Название</th>
+							<c:forEach var="data" items="${listOfDates}">
+								<th align="center">"${data}"</th>
+							</c:forEach>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="shopsWithPhoto" items="${listOfShopsPhoto}">
+							<tr>
+								<td align="center">${shopsWithPhoto.name}</td>
+								<c:forEach var="photo" items="${shopsWithPhoto.photos}">
+									<c:if test="${fn:length(photo.value) > 0}">
+										<td class="font-weight-bold" align="center">
+											<form action="${prefix}/reports/shop_report/" method="post">
+												<input type="hidden" name="_csrf" value="${_csrf.token}" />
+												<input type="hidden" name="photos" value="<c:out value="${photo.value}"/>"/>
+												<input class="img-fluid" type="image" alt="Photo"
+													src="<c:url value="${photo.value[0].pathFoPhoto}"/>"
+													value="Кол-во фото: ${fn:length(photo.value)}">
+											</form>
+										</td>
+									</c:if>
+									<c:if test="${fn:length(photo.value) == 0}">
+										<td align="center">Нет фото</td>
+									</c:if>
+								</c:forEach>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+			</c:if>
+		</div>
+		
+<%-- 				<div>
+			<c:if test="${not empty listOfMerchsPhoto}">
+				<h1>Сводка по мерчам</h1>
+				<div class="row align-items-left">
+				<div class="col-sm-2">
+ 					<form:form action="${prefix}/reports/create_request_week__change_day"
+					 method="get" modelAttribute="changedaystartreport">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
+						<form:hidden path="date" value="${listOfDates[0]}"/>
+						<form:hidden path="typeReqest" value="${type_request}"/>
+						<form:hidden path="changeDay" value="minus"/>
+						<input type="submit" value="На день назад" />
+					</form:form>
+				</div>
+				<div class="col-sm-2">
+ 					<form:form action="${prefix}/reports/create_request_week__change_day"
+					 method="get" modelAttribute="changedaystartreport">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
+						<form:hidden path="date" value="${listOfDates[0]}"/>
+						<form:hidden path="typeReqest" value="${type_request}"/>
+						<form:hidden path="changeDay" value="plus"/>
+						<input type="submit" value="На день вперед" />
+					</form:form>
+				</div>
+				<div class="col-sm-2">
+				</div>
+				</div> --%>
+				
+					
+<%-- 				<div class="row">
+					<!--List of merchs  -->
+					<div class="col-sm-6">
+						<table class="table table-hover table-sm">
+							<thead class="table-info">
+								<tr>
+									<th align="center">ФИО</th>
+									<c:forEach var="data" items="${listOfDates}">
+										<th align="center">"${data}"</th>
+									</c:forEach>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<c:forEach var="merchPhoto" items="${listOfOrder}">
+									<tr>
+									<% %>
+									<c:forEach var="photo" items="${merchPhoto.value}">
+										<td align="center">${photo.merch.name}</td>
+									</c:forEach>
+									</tr>
+									
+<%-- 										<c:forEach var="merchName" items="${merchPhoto.value}">
+											<td align="center">${merchName.merch.name}</td>
+										</c:forEach>
+										<c:forEach var="photo" items="${merchPhoto.value}">
+										<td align="center">${photo.merch.name}</td>
+											<c:if test="${fn:length(photo.value) > 0}">
+												<td class="font-weight-bold" align="center">
+												test
+													<form action="${prefix}/reports/merch_report/"
+														method="post">
+														<input type="hidden" name="_csrf" value="${_csrf.token}" />
+														<input type="hidden" name="photos"
+															value="<c:out value="${photo.value}"/>" /> <input
+															class="img-fluid" type="image" alt="Photo"
+															src="<c:url value="${photo.value[0].pathFoPhoto}"/>"
+															value="Кол-во фото: ${fn:length(photo.value)}">
+													</form>
+												</td>
+											</c:if>
+											<c:if test="${fn:length(photo.value) == 0}">
+												<td align="center">Нет фото</td>
+											</c:if>
+										</c:forEach>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</c:if>
+		</div> --%>
+		
+		
 	</div>
 </body>
 </html>
