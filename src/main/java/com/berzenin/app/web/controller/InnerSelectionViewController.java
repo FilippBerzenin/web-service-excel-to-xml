@@ -27,7 +27,7 @@ public class InnerSelectionViewController extends GenericViewControllerImpl<Phot
 	
 	@RequestMapping(value = "/reports/merch_report", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public String getRezultForMerch(@RequestParam("photos") String photo, Model model) {
+	public String getRezultForMerch(@RequestParam("photos_list") String photo, Model model) {
 		List<Photo> photos = new ArrayList<>();
 		Pattern pattern = Pattern.compile("id=.+?\\D");
 		Matcher matcher = pattern.matcher(photo);
@@ -45,7 +45,7 @@ public class InnerSelectionViewController extends GenericViewControllerImpl<Phot
 	@RequestMapping(value = "/reports/merch_report/{photo_id}", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public String getPhotoForMerch(
-			@RequestParam("photos") String photo,
+			@RequestParam("photos_list") String photo,
 			@PathVariable("photo_id") long photo_id,			
 			Model model) {
 		List<Photo> photos = new ArrayList<>();
@@ -63,7 +63,7 @@ public class InnerSelectionViewController extends GenericViewControllerImpl<Phot
 	@RequestMapping(value = "/reports/shop_report/{photo_id}", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public String getPhotoForShop(
-			@RequestParam("photos") String photo,
+			@RequestParam("photos_list") String photo,
 			@PathVariable("photo_id") long photo_id,			
 			Model model) {
 		List<Photo> photos = new ArrayList<>();
@@ -80,7 +80,7 @@ public class InnerSelectionViewController extends GenericViewControllerImpl<Phot
 	
 	@RequestMapping(value = "/reports/shop_report", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public String getRezultForShop(@RequestParam("photos") String photo, Model model) {
+	public String getRezultForShop(@RequestParam("photos_list") String photo, Model model) {
 		List<Photo> photos = new ArrayList<>();
 		Pattern pattern = Pattern.compile("id=.+?\\D");
 		Matcher matcher = pattern.matcher(photo);

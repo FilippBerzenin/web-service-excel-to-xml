@@ -16,6 +16,7 @@ public class MerchWithPhoto {
 		
 		private String name;
 		private Map<LocalDate, Map<ObjectPlace, List<Photo>>> photos;
+		private long id;
 		
 		public MerchWithPhoto(String name, Map<LocalDate, Map<ObjectPlace, List<Photo>>> photos) {
 			this.name = name;

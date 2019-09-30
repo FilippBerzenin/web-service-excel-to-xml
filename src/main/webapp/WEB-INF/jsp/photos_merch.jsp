@@ -53,7 +53,7 @@
 								<div class="col-sm-12 my-2">
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
 										<input type="hidden" name="_csrf" value="${_csrf.token}" />
-										<input type="hidden" name="photos" value="<c:out value="${potos_list}"/>"/>
+										<input type="hidden" name="photos_list" value="<c:out value="${potos_list}"/>"/>
 										<input class="img-fluid" type="image" alt="Photo"
 											src="<c:url value="${photo.pathFoPhoto}"/>"/>
 									</form>
@@ -68,7 +68,7 @@
 								<div class="col-sm-12 my-2">
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
 										<input type="hidden" name="_csrf" value="${_csrf.token}" />
-										<input type="hidden" name="photos" value="<c:out value="${potos_list}"/>"/>
+										<input type="hidden" name="photos_list" value="<c:out value="${potos_list}"/>"/>
 										<input class="img-fluid" type="image" alt="Photo"
 											src="<c:url value="${photo.pathFoPhoto}"/>"/>
 									</form>									

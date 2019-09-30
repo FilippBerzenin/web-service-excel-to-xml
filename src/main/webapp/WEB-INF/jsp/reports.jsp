@@ -123,7 +123,17 @@
 										<c:forEach var="photosByObjects" items="${merchWithPhoto.photos}">
 											<td>
 												<c:forEach var="photos" items="${photosByObjects.value}">
-												${photos.key}
+												<p>ID: 0000, time</p>
+												${photos.key.name}
+												<div>
+													<form action="${prefix}/reports/merch_report/"
+														method="post">
+														<input type="hidden" name="_csrf" value="${_csrf.token}" />
+														<input type="hidden" name="photos_list" value="<c:out value="${photos.value}"/>" /> 
+														<input class="img-fluid" type="image" alt="Photo" src="<c:url value="${photos.value[0].pathFoPhoto}"/>"
+															value="Кол-во фото: ${fn:length(photos.value)}">
+													</form>
+												</div>
 												</c:forEach>
 											</td>
 										

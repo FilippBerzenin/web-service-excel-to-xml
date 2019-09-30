@@ -69,8 +69,4 @@ public class Photo {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="merch_photos")
 	private Merch merch;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private Report report;
-
 }
