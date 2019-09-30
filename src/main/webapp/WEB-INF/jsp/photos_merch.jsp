@@ -40,17 +40,22 @@
 		<div class="row">
 			<div class="col-sm-8">
 			<div align="center">
-				<h1>Отчет ${central_image.merch.name}, ${central_image.objectPlace.name}, ${central_image.date}</h1>
+<h1>Отчет №${central_image.date}/${central_image.merch.id+central_image.objectPlace.id+fn:length(potos_list)},
+				${central_image.merch.name},
+				${central_image.objectPlace.name}, 
+				${central_image.date}, 								 
+				${central_image.time}</h1>
 			</div>
 				<img src="${central_image.pathFoPhoto}" class="img-fluid">
 			</div>
+			
 			<div class="col-sm-4" style="height: 450px; overflow-y: scroll;">
 				<div class="row">
 					<div class="col-sm-6 p-1">
 						<c:forEach var="photo" items="${potos_list}" begin="0" step="2"
 							varStatus="iter">
 							<c:if test="${iter.count/2>0}">
-								<div class="col-sm-12 my-2">
+								<div class="col-sm-12 my-2" >
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
 										<input type="hidden" name="_csrf" value="${_csrf.token}" />
 										<input type="hidden" name="photos_list" value="<c:out value="${potos_list}"/>"/>

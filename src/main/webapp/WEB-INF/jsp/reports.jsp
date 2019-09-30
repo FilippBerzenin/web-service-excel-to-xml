@@ -78,6 +78,8 @@
 				</form:form>
 			</div>
 		</div>
+		
+		
 		<div>
 			<c:if test="${not empty listOfMerchsPhoto}">
 				<h1>Сводка по мерчам</h1>
@@ -105,38 +107,40 @@
 				</div>
 				<div class="row">
 					<!--List of merchs  -->
-					<div class="col-sm-12">
-						<table class="table table-striped">
+					<div class="container">
+						<table class="table">
 							<thead class="table-info" >
 								<tr >
-									<th align="center">ФИО</th>
+									<th class="align-middle">ФИО</th>
 									<c:forEach var="data" items="${listOfDates}">
-										<th nowrap="nowrap" align="center">"${data}"</th>
+										<th class="justify-content align-middle">${data}</th>
 									</c:forEach>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="merchWithPhoto" items="${listOfMerchsPhoto}">
 									<tr>
-										<td  align="center">${merchWithPhoto.name}</td>
+										<td class="align-middle">${merchWithPhoto.name}</td>
 										<c:forEach var="photosByObjects" items="${merchWithPhoto.photos}">
-											<td>
+										<c:if test="${not empty photosByObjects.value}">
+											<td class="row-sm-4 justify-content">
+											<div class="row">
 												<c:forEach var="photos" items="${photosByObjects.value}">
-												<p class="my-1">ID: 
-												${photosByObjects.key}/${merchWithPhoto.merch_id+photos.key.id+fn:length(photos.value)},
-												 time:${photos.value[0].time} </p>
+												<div class="col-sm-4">
+												<p class="my-1">ID: ${photosByObjects.key}/${merchWithPhoto.merch_id+photos.key.id+fn:length(photos.value)}, time:${photos.value[0].time} </p>
 												<p class="my-1">${photos.key.name}</p>
-												<div>
-													<form action="${prefix}/reports/merch_report/"
+												<form action="${prefix}/reports/merch_report/"
 														method="post">
 														<input type="hidden" name="_csrf" value="${_csrf.token}" />
 														<input type="hidden" name="photos_list" value="<c:out value="${photos.value}"/>" /> 
 														<input class="img-fluid" type="image" alt="Photo" src="<c:url value="${photos.value[0].pathFoPhoto}"/>"
 															value="Кол-во фото: ${fn:length(photos.value)}">
 													</form>
-												</div>
+												</div>												
 												</c:forEach>
+												</div>
 											</td>
+											</c:if>
 										</c:forEach>
 								</c:forEach>
 								</tbody>
@@ -146,7 +150,78 @@
 			</c:if>
 		</div>
 		
-				<div>
+		<div>
+			<c:if test="${not empty listOfShopsPhoto}">
+				<h1>Сводка по магазинам</h1>
+				<div class="row align-items-left">
+				<div class="col-sm-2">
+ 					<form:form action="${prefix}/reports/create_request_week__change_day"
+					 method="get" modelAttribute="changedaystartreport">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
+						<form:hidden path="date" value="${listOfDates[0]}"/>
+						<form:hidden path="typeReqest" value="${type_request}"/>
+						<form:hidden path="changeDay" value="minus"/>
+						<input type="submit" value="На день назад" />
+					</form:form>
+				</div>
+				<div class="col-sm-2">
+ 					<form:form action="${prefix}/reports/create_request_week__change_day"
+					 method="get" modelAttribute="changedaystartreport">
+						<input type="hidden" name="_csrf" value="${_csrf.token}" />
+						<form:hidden path="date" value="${listOfDates[0]}"/>
+						<form:hidden path="typeReqest" value="${type_request}"/>
+						<form:hidden path="changeDay" value="plus"/>
+						<input type="submit" value="На день вперед" />
+					</form:form>
+				</div>
+				</div>
+				
+				<div class="row">
+					<!--List of merchs  -->
+					<div class="container">
+						<table class="table">
+							<thead class="table-info" >
+								<tr >
+									<th class="align-middle">Название</th>
+									<c:forEach var="data" items="${listOfDates}">
+										<th class="justify-content align-middle">${data}</th>
+									</c:forEach>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="merchWithPhoto" items="${listOfShopsPhoto}">
+									<tr>
+										<td class="align-middle">${merchWithPhoto.name}</td>
+										<c:forEach var="photosByObjects" items="${merchWithPhoto.photos}">
+										<c:if test="${not empty photosByObjects.value}">
+											<td class="row-sm-4 justify-content">
+											<div class="row">
+												<c:forEach var="photos" items="${photosByObjects.value}">
+												<div class="col-sm-4">
+												<p class="my-1">ID: ${photosByObjects.key}/${merchWithPhoto.shop_id+photos.key.id+fn:length(photos.value)}, time:${photos.value[0].time} </p>
+												<p class="my-1">${photos.key.name}</p>
+												<form action="${prefix}/reports/shop_report/"
+														method="post">
+														<input type="hidden" name="_csrf" value="${_csrf.token}" />
+														<input type="hidden" name="photos_list" value="<c:out value="${photos.value}"/>" /> 
+														<input class="img-fluid" type="image" alt="Photo" src="<c:url value="${photos.value[0].pathFoPhoto}"/>"
+															value="Кол-во фото: ${fn:length(photos.value)}">
+													</form>
+												</div>												
+												</c:forEach>
+												</div>
+											</td>
+											</c:if>
+										</c:forEach>
+								</c:forEach>
+								</tbody>
+						</table>
+					</div>
+				</div>
+			</c:if>
+		</div>
+		
+<%-- 		<div>
 			<c:if test="${not empty listOfShopsPhoto}">
 				<h1>Сводка по магазинам</h1>
 				<div class="row align-items-left">
@@ -172,9 +247,9 @@
 				</div>
 				<div class="col-sm-2">
 				</div>
-				</div>
+				</div>	
 				<div class="row">
-					<!--List of merchs  -->
+					<!--List of shops  -->
 					<div class="col-sm-6">
 						<table class="table table-hover table-sm">
 							<thead class="table-info">
@@ -191,9 +266,11 @@
 										<td  align="center">${shopsWithPhoto.name}</td>
 										<c:forEach var="photosByMerch" items="${shopsWithPhoto.photos}">
 											<td>
+												<div class="row">
 												<c:forEach var="photos" items="${photosByMerch.value}">
+												<div class="col">
 												<p class="my-1">ID: 
-												${shopsWithPhoto.shop_id+photos.key.id+fn:length(photos.value)},
+												${photosByObjects.key}/${merchWithPhoto.merch_id+photos.key.id+fn:length(photos.value)},
 												 time:${photos.value[0].time} </p>
 												<p class="my-1">${photos.key.name}</p>
 												<div>
@@ -205,7 +282,9 @@
 															value="Кол-во фото: ${fn:length(photos.value)}">
 													</form>
 												</div>
+												</div>
 												</c:forEach>
+												</div>
 											</td>
 										</c:forEach>
 								</c:forEach>
@@ -213,8 +292,9 @@
 						</table>
 					</div>
 				</div>
-			</c:if>
+				
+				
+			</c:if> --%>
 		</div>
-	</div>
 </body>
 </html>

@@ -40,7 +40,12 @@
 		<div class="row">
 			<div class="col-sm-8">
 			<div align="center">
-				<h1>Отчет ${central_image.merch.name}, ${central_image.objectPlace.name}, ${central_image.date}</h1>
+			<h1>Отчет №${central_image.date}/${central_image.merch.id+central_image.objectPlace.id+fn:length(potos_list)},
+				${central_image.merch.name},
+				${central_image.objectPlace.name}, 
+				${central_image.date}, 								 
+				${central_image.time}</h1>
+			</div>
 			</div>
 				<img src="${central_image.pathFoPhoto}" class="img-fluid">
 
