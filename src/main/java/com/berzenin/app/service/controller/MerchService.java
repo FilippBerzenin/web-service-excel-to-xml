@@ -56,7 +56,7 @@ public class MerchService extends GenericServiceImpl<Merch, MerchRepository> {
 		}
 		for (LocalDate date: dates) {
 			if (!photoBydates.containsKey(date)) {
-				photoBydates.put(date, null);
+				photoBydates.put(date, new HashMap<>());
 			}
 		}
 		SortedMap sortedMap = new TreeMap();

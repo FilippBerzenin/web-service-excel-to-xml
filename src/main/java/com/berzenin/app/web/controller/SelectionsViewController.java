@@ -52,51 +52,6 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 		model.addAttribute("objectTypes", TypeReqest.values());
 		return page;
 	}
-
-//	@RequestMapping(value = "/createRequest", method = RequestMethod.POST)
-//	@ResponseStatus(HttpStatus.OK)
-//	public String getRezult(@ModelAttribute("requestFor") @Valid SelectionsRequest req, BindingResult result,
-//			Model model) {
-//		if (result.hasErrors() || !this.badDatePeriod(req.getDateStartSearch(), req.getDateFinishSearch())) {
-//			model.addAttribute("message", "Обратите внимание на период между датами запроса(не более 30 дней)");
-//			model.addAttribute("page", page);
-//			model.addAttribute("objectTypes", TypeReqest.values());
-//			return page;
-//		}
-//		if (req.getTypeReqest().equals(TypeReqest.MERCH.getValue())) {
-//			model.addAttribute("page", "report_merch");
-//			List<LocalDate> dates = service.getDatesBetweenTwoDates(req.getDateStartSearch(),
-//					req.getDateFinishSearch());
-//			List<MerchWithPhoto> merchs = merchService.findAll().stream()
-//					.map(m -> new MerchWithPhoto(m.getName(), merchService.getPhotosByDates(m, dates)))
-//					.collect(Collectors.toList());
-//			model.addAttribute("listOfDates", dates);
-//			model.addAttribute("listOfMerchsPhoto", merchs);
-//			return "report_merch";
-//		}
-//		if (req.getTypeReqest().equals(TypeReqest.SHOP.getValue())) {
-//			model.addAttribute("page", "report_shop");
-//			List<LocalDate> dates = service.getDatesBetweenTwoDates(req.getDateStartSearch(),
-//					req.getDateFinishSearch());
-//			List<ShopsWithPhoto> shops = shopService.findAll().stream()
-//					.map(m -> new ShopsWithPhoto(m.getName(), shopService.getPhotosByDates(m, dates)))
-//					.collect(Collectors.toList());
-//			model.addAttribute("listOfDates", dates);
-//			model.addAttribute("listOfShopsPhoto", shops);
-//			return "report_shops";
-//		}
-//		model.addAttribute("page", page);
-//		model.addAttribute("objectTypes", TypeReqest.values());
-//		return page;
-//	}
-//
-//	private boolean badDatePeriod(LocalDate startDate, LocalDate finishDate) {
-//		long p2 = ChronoUnit.DAYS.between(startDate, finishDate);
-//		if (p2 > 0 && p2 <= 30) {
-//			return true;
-//		}
-//		return false;
-//	}
 	
 	@RequestMapping(value = "/create_request_week", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
@@ -110,37 +65,23 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 			model.addAttribute("objectTypes", TypeReqest.values());
 			return page;
 		}
+		List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(req.getDateStartSearch());
 		if (req.getTypeReqest().equals(TypeReqest.MERCH.getValue())) {
 			model.addAttribute("page", "report_merch");
-			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(req.getDateStartSearch());
-			
 			List<MerchWithPhoto> merchs = merchService.findAll().stream()
 					.map(m -> new MerchWithPhoto(m.getId(), m.getName(), merchService.getPhotosByDates(m, dates)))
-					.collect(Collectors.toList());
-			
-			model.addAttribute("type_request", req.getTypeReqest());
-			model.addAttribute("listOfDates", dates);
+					.collect(Collectors.toList());			
 			model.addAttribute("listOfMerchsPhoto", merchs);
-			model.addAttribute("page", page);
-			model.addAttribute("objectTypes", TypeReqest.values());
-			return page;
 		}
 		if (req.getTypeReqest().equals(TypeReqest.SHOP.getValue())) {
 			model.addAttribute("page", "report_shop");
-			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(req.getDateStartSearch());
-			
 			List<ShopsWithPhoto> shops = shopService.findAll().stream()
 					.map(m -> new ShopsWithPhoto(m.getId(), m.getName(), shopService.getPhotosByDates(m, dates)))
-					.collect(Collectors.toList());
-			
-			
-			model.addAttribute("type_request", req.getTypeReqest());
-			model.addAttribute("listOfDates", dates);
+					.collect(Collectors.toList());			
 			model.addAttribute("listOfShopsPhoto", shops);
-			model.addAttribute("page", page);
-			model.addAttribute("objectTypes", TypeReqest.values());
-			return page;
 		}
+		model.addAttribute("type_request", req.getTypeReqest());
+		model.addAttribute("listOfDates", dates);
 		model.addAttribute("page", page);
 		model.addAttribute("objectTypes", TypeReqest.values());
 		return page;
@@ -169,30 +110,21 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 		} else {
 			newDate = req.getDate().minusDays(1);	
 		}
+		List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(newDate);
 		if (req.getTypeReqest().equals(TypeReqest.MERCH.getValue())) {
-			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(newDate);
 			List<MerchWithPhoto> merchs = merchService.findAll().stream()
 					.map(m -> new MerchWithPhoto(m.getId(), m.getName(), merchService.getPhotosByDates(m, dates)))
 					.collect(Collectors.toList());
-			model.addAttribute("type_request", req.getTypeReqest());
-			model.addAttribute("listOfDates", dates);
 			model.addAttribute("listOfMerchsPhoto", merchs);
-			model.addAttribute("page", page);
-			model.addAttribute("objectTypes", TypeReqest.values());
-			return page;
 		}
 		if (req.getTypeReqest().equals(TypeReqest.SHOP.getValue())) {
-			List<LocalDate> dates = service.getDatesBetweenDatePlus6Days(newDate);
 			List<ShopsWithPhoto> shops = shopService.findAll().stream()
 					.map(m -> new ShopsWithPhoto(m.getId(), m.getName(), shopService.getPhotosByDates(m, dates)))
 					.collect(Collectors.toList());
-			model.addAttribute("type_request", req.getTypeReqest());
-			model.addAttribute("listOfDates", dates);
 			model.addAttribute("listOfShopsPhoto", shops);
-			model.addAttribute("page", page);
-			model.addAttribute("objectTypes", TypeReqest.values());
-			return page;
 		}
+		model.addAttribute("type_request", req.getTypeReqest());
+		model.addAttribute("listOfDates", dates);
 		model.addAttribute("page", page);
 		model.addAttribute("objectTypes", TypeReqest.values());
 		return page;

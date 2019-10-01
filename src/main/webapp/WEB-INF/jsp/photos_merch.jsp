@@ -46,7 +46,10 @@
 				${central_image.date}, 								 
 				${central_image.time}</h1>
 			</div>
-				<img src="${central_image.pathFoPhoto}" class="img-fluid">
+			<div>
+			<img src="${central_image.pathFoPhoto}" style="height: auto; width: 600px;" class="img-fluid img-thumbnail ">
+			</div>
+
 			</div>
 			
 			<div class="col-sm-4" style="height: 450px; overflow-y: scroll;">
@@ -55,11 +58,11 @@
 						<c:forEach var="photo" items="${potos_list}" begin="0" step="2"
 							varStatus="iter">
 							<c:if test="${iter.count/2>0}">
-								<div class="col-sm-12 my-2" >
+								<div class="col-sm-12 my-2" style="display: center; align-items: center; width: 180px; height: 100px">
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
 										<input type="hidden" name="_csrf" value="${_csrf.token}" />
 										<input type="hidden" name="photos_list" value="<c:out value="${potos_list}"/>"/>
-										<input class="img-fluid" type="image" alt="Photo"
+										<input class="img" style="display: center; align-items: center; width: auto; height: 100px" type="image" alt="Photo"
 											src="<c:url value="${photo.pathFoPhoto}"/>"/>
 									</form>
 								</div>
@@ -70,11 +73,11 @@
 						<c:forEach var="photo" items="${potos_list}" begin="1" step="2"
 							varStatus="iter">
 							<c:if test="${iter.count/2>0}">
-								<div class="col-sm-12 my-2">
+								<div class="col-sm-12 my-2" style="display: center; align-items: center; width: 180px; height: 100px">
 									<form action="${prefix}/reports/merch_report/${photo.id}" method="post">
 										<input type="hidden" name="_csrf" value="${_csrf.token}" />
 										<input type="hidden" name="photos_list" value="<c:out value="${potos_list}"/>"/>
-										<input class="img-fluid" type="image" alt="Photo"
+										<input class="img" style="display: center; align-items: center; width: auto; height: 100px" type="image" alt="Photo"
 											src="<c:url value="${photo.pathFoPhoto}"/>"/>
 									</form>									
 								</div>
