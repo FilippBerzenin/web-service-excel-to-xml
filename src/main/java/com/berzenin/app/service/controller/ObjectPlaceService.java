@@ -1,7 +1,6 @@
 package com.berzenin.app.service.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,24 +28,8 @@ public class ObjectPlaceService extends GenericServiceImpl<ObjectPlace, ObjectPl
 	private PhotoService photoService;
 	
 	@Autowired
-	private MerchService merchService;
-	
-//	public Map<LocalDate, List<Photo>> getPhotosByDates(ObjectPlace shops, List<LocalDate> dates) {
-//		Map<LocalDate, List<Photo>> photoBydates = shops.getPhotos().stream()
-//				.filter(photo -> dates.contains(photo.getDate()))
-//				.collect(Collectors.groupingBy(Photo::getDate,
-//			        Collectors.mapping(
-//			        		photo -> photoService.findById(photo.getId()), Collectors.toList())));
-//		for (LocalDate date: dates) {
-//			if (!photoBydates.containsKey(date)) {
-//				photoBydates.put(date, new ArrayList<Photo>());
-//			}
-//		}
-//		SortedMap sortedMap = new TreeMap();
-//		sortedMap.putAll(photoBydates);
-//		return sortedMap;
-//	}
-	
+	private MerchService merchService;	
+
 	public Map<LocalDate, Map<Merch, List<Photo>>> getPhotosByDates(ObjectPlace shops, List<LocalDate> dates) {
 		Map<LocalDate, Map<Merch, List<Photo>>> photoBydates = new HashMap<>();
 		

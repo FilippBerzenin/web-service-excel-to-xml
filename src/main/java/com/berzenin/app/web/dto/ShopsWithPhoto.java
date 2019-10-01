@@ -14,12 +14,12 @@ import lombok.Setter;
 @Setter
 public class ShopsWithPhoto {
 	private String name;
-	private Map<LocalDate, Map<Merch, List<Photo>>> photosGropyingByLocalDate;
+	private Map<LocalDate, Map<Merch, List<Photo>>> photos;
 	private long id;
 	
 	public ShopsWithPhoto(Long shop_id, String name, Map<LocalDate, Map<Merch, List<Photo>>> photos) {
 		this.name = name;
-		this.photosGropyingByLocalDate = photos;
+		this.photos = photos;
 		this.id = shop_id;
 	}
 	

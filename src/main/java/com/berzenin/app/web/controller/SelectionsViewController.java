@@ -59,8 +59,16 @@ public class SelectionsViewController extends GenericViewControllerImpl<Photo, S
 			@ModelAttribute("requestFor") @Valid SelectionsRequest req,
 			BindingResult result,
 			Model model) {
-		if (result.hasErrors()) {
-			model.addAttribute("message", "Обратите внимание на период между датами запроса(не более 30 дней)");
+		try {
+		if (req.getDateStartSearch().equals(null) || result.hasErrors()) {
+			model.addAttribute("message", "Обратите внимание на дату запроса");
+			model.addAttribute("page", page);
+			model.addAttribute("objectTypes", TypeReqest.values());
+			return page;
+		}
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			model.addAttribute("message", "Обратите внимание на дату запроса");
 			model.addAttribute("page", page);
 			model.addAttribute("objectTypes", TypeReqest.values());
 			return page;
