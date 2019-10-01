@@ -29,7 +29,6 @@ public class MerchViewController extends GenericViewControllerImpl<Merch, MerchS
 	public String deleteEntity(
 			@PathVariable("id") Long id,
 			Model model) {
-		// TODO Auto-generated method stub
 		return super.deleteEntity(id, model);
 	}
 	}

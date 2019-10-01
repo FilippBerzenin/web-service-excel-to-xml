@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.berzenin.app.dao.PhotoRepository;
 import com.berzenin.app.model.Photo;
-import com.berzenin.app.web.dto.PhotosFromDatesContainer;
 
 @Service
 public class SelectionsService extends GenericServiceImpl<Photo, PhotoRepository> {

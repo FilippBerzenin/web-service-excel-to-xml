@@ -79,6 +79,4 @@ public class ObjectPlaceService extends GenericServiceImpl<ObjectPlace, ObjectPl
 		this.update(entity);
 		super.remove(entity);
 	}
-	
-
 }

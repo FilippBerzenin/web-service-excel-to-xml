@@ -17,8 +17,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.engine.internal.CascadePoint;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -57,10 +55,6 @@ public class Merch {
 	@OneToMany(mappedBy="merch", fetch = FetchType.LAZY)
 	@Column(name = "users_photos")
 	private List<Photo> photos;
-	
-//	@JsonIgnore
-//	@OneToMany(mappedBy="merch", fetch = FetchType.LAZY)
-//	private List<Report> reports;
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
