@@ -23,7 +23,8 @@
 </style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
 <c:set var="page" value="${page}" />
-</head>
+
+<title>Start page</title></head>
 <body>
 
 	<div class="jumbotron text-center" style="margin-bottom: 0">
@@ -31,23 +32,23 @@
 	</div>
 
 	<div class="container" align="center" style="margin-top: 30px">
-		<div class="row align-items-center">
+			<div class="row align-items-center">
 			<div class="col-sm-4">
-				<form action="${prefix}/object_place/show/all" method="GET">
+				<form action="${prefix}/form_configuration/form" method="GET">
 				<input type="hidden" name="_csrf" value="${_csrf.token}" />
-					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить объект</button>
+					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить новую конфигурацию</button>
 				</form>
 			</div>
 			<div class="col-sm-4">
 				<form action="${prefix}/merch/show/all" method="GET">
 				<input type="hidden" name="_csrf" value="${_csrf.token}" />
-					<button type="submit" class="btn btn-outline-primary btn-lg">Добавить мерча</button>
+					<button type="submit" class="btn btn-outline-primary btn-lg">Создать результирующий Excel file</button>
 				</form>
 			</div>
 			<div class="col-sm-4">
 				<form action="${prefix}/reports" method="GET">
 				<input type="hidden" name="_csrf" value="${_csrf.token}" />
-					<button type="submit" class="btn btn-outline-primary btn-lg">Показать сводку</button>
+					<button type="submit" class="btn btn-outline-primary btn-lg">Конвертировть Excel в XML</button>
 				</form>
 			</div>
 		</div>
