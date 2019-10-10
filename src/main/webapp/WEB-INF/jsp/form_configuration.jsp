@@ -16,6 +16,25 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function add() {
+		var element = document.createElement("input");
+		element.setAttribute("type", "text");
+		element.setAttribute("name", "mytext");
+		var spanvar = document.getElementById("myspan");
+		spanvar.appendChild(element);
+	}
+	
+	var categories = new Set();
+	function addCat() {
+		
+		var element = document.createElement("input");
+		element.setAttribute("type", "text");
+		element.setAttribute("name", "mytext");
+		var spanvar = document.getElementById("categories");
+		spanvar.appendChild(element);
+	}
+</script>
 <style>
 .fakeimg {
 	height: 200px;
@@ -42,51 +61,137 @@
 				<div class="alert alert-warning">"${message}"</div>
 			</c:if>
 		</div>
-		<div class="row align-items-center">
-			<!--Add new configuration  -->
-			<div class="col-sm-6">
-				<div class="form-group">
-					<form:form method="post" action="${prefix}/${page}/add/"
-						modelAttribute="entity">
-						<div align="center">
-							<spring:hasBindErrors name="entity">
-								<c:forEach var="error" items="${errors.allErrors}">
-									<b><spring:message 
-										code="${error.code}"
-										arguments="${error.arguments}" 
-										text="${error.field} ${error.defaultMessage}"/></b>
-									<br />
-								</c:forEach>
-							</spring:hasBindErrors>
-						</div>
-						<input type="hidden" name="_csrf" value="${_csrf.token}" />
-						<h3>Total date</h3>
-						<table class="table">
-							<thead class="table-info">
-								<tr>
-									<th>Rezult column</th>
-									<th>Resorce column</th>
-								</tr>
-								<tr>
-									<td><form:input path="shop" style="margin-top: 5px" /></td>
-								</tr>
-								<tr>
-									<td><form:input path="name" style="margin-top: 5px" /></td>
-								</tr>
-								<tr>
-									<td><form:input path="company" style="margin-top: 5px" /></td>
-								</tr>
-								<tr>
-									<td><form:input path="url" style="margin-top: 5px" /></td>
-								</tr>
-								<tr>
-									<td><button type="submit" style="margin-top: 5px">Сохранить</button></td>
-								</tr>
-						</table>
-					</form:form>
+		<!--Add new configuration  -->
+		<form:form method="post" action="${prefix}/${page}/add/"
+			modelAttribute="entity">
+			<div class="form-group">
+				<div class="col-sm-6">
+					<div align="center">
+						<spring:hasBindErrors name="entity">
+							<c:forEach var="error" items="${errors.allErrors}">
+								<b><spring:message code="${error.code}"
+										arguments="${error.arguments}"
+										text="${error.field} ${error.defaultMessage}" /></b>
+								<br />
+							</c:forEach>
+						</spring:hasBindErrors>
+					</div>
+					<input type="hidden" name="_csrf" value="${_csrf.token}" />
+					<button type="submit" style="margin-top: 5px">Save
+						configuration</button>
+					<h3>Total date</h3>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">Rezult column</th>
+								<th class="text-center">Resorce column</th>
+								<th class="text-center">If use excel resorces</th>
+								<th class="text-center">Excel list</th>
+								<th class="text-center">Excel cell</th>
+							</tr>
+						</thead>
+						<tr class="align-middle text-center">
+							<td class="align-middle text-center"><form:label path="shop">Shop</form:label></td>
+							<td class="align-middle text-center"><form:input
+									path="shop.name" /></td>
+							<td class="align-middle text-center"><form:checkbox
+									path="shop.excelData" /></td>
+							<td class="align-middle text-center"><form:input
+									path="shop.listFromExcelBook" /></td>
+							<td class="align-middle text-center"><form:input
+									path="shop.cellFromExcelBook" /></td>
+						</tr>
+						<tr class="align-middle text-center">
+							<td class="align-middle text-center"><form:label path="name">Name</form:label></td>
+							<td class="align-middle text-center"><form:input
+									path="name.name" /></td>
+							<td class="align-middle text-center"><form:checkbox
+									path="name.excelData" /></td>
+							<td class="align-middle text-center"><form:input
+									path="name.listFromExcelBook" /></td>
+							<td class="align-middle text-center"><form:input
+									path="name.cellFromExcelBook" /></td>
+						</tr>
+						<tr class="align-middle text-center">
+							<td class="align-middle text-center"><form:label
+									path="company">Company</form:label></td>
+							<td class="align-middle text-center"><form:input
+									path="company.name" /></td>
+							<td class="align-middle text-center"><form:checkbox
+									path="company.excelData" /></td>
+							<td class="align-middle text-center"><form:input
+									path="company.listFromExcelBook" /></td>
+							<td class="align-middle text-center"><form:input
+									path="company.cellFromExcelBook" /></td>
+						</tr>
+						<tr class="align-middle text-center">
+							<td class="align-middle text-center"><form:label path="url">URL</form:label></td>
+							<td class="align-middle text-center"><form:input
+									path="url.name" /></td>
+							<td class="align-middle text-center"><form:checkbox
+									path="url.excelData" /></td>
+							<td class="align-middle text-center"><form:input
+									path="url.listFromExcelBook" /></td>
+							<td class="align-middle text-center"><form:input
+									path="url.cellFromExcelBook" /></td>
+						</tr>
+						<tr class="align-middle text-center">
+							<td class="align-middle text-center"><form:label
+									path="platform">Platform (Optional element)</form:label></td>
+							<td class="align-middle text-center"><form:input
+									path="platform.name" /></td>
+							<td class="align-middle text-center"><form:checkbox
+									path="platform.excelData" /></td>
+							<td class="align-middle text-center"><form:input
+									path="platform.listFromExcelBook" /></td>
+							<td class="align-middle text-center"><form:input
+									path="platform.cellFromExcelBook" /></td>
+						</tr>
+						<tr class="align-middle text-center">
+							<td class="align-middle text-center"><form:label
+									path="currencies">Currencies (UAH)</form:label></td>
+							<td class="align-middle text-center"><form:input
+									path="currencies.name" /></td>
+							<td class="align-middle text-center"><form:checkbox
+									path="currencies.excelData" /></td>
+							<td class="align-middle text-center"><form:input
+									path="currencies.listFromExcelBook" /></td>
+							<td class="align-middle text-center"><form:input
+									path="currencies.cellFromExcelBook" /></td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-sm-6">
+					<div id="certificationtog">
+						<p class="setting">
+							<input type="button" id="addrows" name="addrows" class="addperson" value="Add Rows" onclick="add();"> 
+							<span id="myspan"></span> 
+							<br> 
+							<br>
+							<span style="width: 0px; margin-left: 20px; font-weight: bold; float: none;">
+								Diploma/Certificate: </span>
+						</p>
+					</div>
+				</div>
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th class="text-center">Categorie name</th>
+								<th class="text-center">Categorie id</th>
+								<th class="text-center">Parent categorie id</th>
+							</tr>
+						</thead>
+						
+						<tr>
+						<span id="categories"></span>
+						<td><button type="button" value="add categorie" onclick="addCat();">Add categorie</button></td>
+						</tr>
+					</table>
 				</div>
 			</div>
-		</div>
+		</form:form>
 	</div>
+
 </body>
 </html>
