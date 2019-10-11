@@ -16,25 +16,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	function add() {
-		var element = document.createElement("input");
-		element.setAttribute("type", "text");
-		element.setAttribute("name", "mytext");
-		var spanvar = document.getElementById("myspan");
-		spanvar.appendChild(element);
-	}
-	
-	var categories = new Set();
-	function addCat() {
-		
-		var element = document.createElement("input");
-		element.setAttribute("type", "text");
-		element.setAttribute("name", "mytext");
-		var spanvar = document.getElementById("categories");
-		spanvar.appendChild(element);
-	}
-</script>
+<script src="/js/form_configuration.js"></script>
 <style>
 .fakeimg {
 	height: 200px;
@@ -162,16 +144,20 @@
 					</table>
 				</div>
 				<div class="col-sm-6">
-					<div id="certificationtog">
-						<p class="setting">
-							<input type="button" id="addrows" name="addrows" class="addperson" value="Add Rows" onclick="add();"> 
-							<span id="myspan"></span> 
-							<br> 
-							<br>
-							<span style="width: 0px; margin-left: 20px; font-weight: bold; float: none;">
-								Diploma/Certificate: </span>
-						</p>
-					</div>
+					<table id="currencies">
+						<thead>
+							<tr>
+								<th class="text-center">Currencie id</th>
+								<th class="text-center">Currencies name</th>
+							</tr>					
+					</thead>
+						<tr>
+							<td><input type="text" value="1"></td>
+							<td><input type="text" value="UAH"></td>
+							<td><input type="button" value="Add new currencie" onclick="addCurrencie();"></td>
+						</tr>
+					</table>
+					<button type="button" onclick="saveCurrencies();">Save currencies</button>
 				</div>
 				<div>
 					<table>
