@@ -11,18 +11,9 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="/js/form_configuration.js"></script>
-<style>
-.fakeimg {
-	height: 200px;
-	background: #aaa;
-}
-</style>
 <c:set var="prefix" value="${pageContext.request.contextPath}" />
 <c:set var="page" value="${page}" />
 <c:set var="merch" value="${entity}" />
@@ -152,12 +143,12 @@
 							</tr>					
 					</thead>
 						<tr>
-							<td><input type="text" value="1"></td>
-							<td><input type="text" value="UAH"></td>
-							<td><input type="button" value="Add new currencie" onclick="addCurrencie();"></td>
+							<td><input id="first_cur_id" type="text" value="1" disabled = 'true'></td>
+							<td><input id="first_cur_value" type="text" value="UAH"></td>
+							<td><input id="add_currencie" type="button" value="Add new currencie""></td>
 						</tr>
 					</table>
-					<button type="button" onclick="saveCurrencies();">Save currencies</button>
+					<button id='save_currencies' type="button">Save currencies</button>
 				</div>
 				<div>
 					<table>
@@ -168,16 +159,12 @@
 								<th class="text-center">Parent categorie id</th>
 							</tr>
 						</thead>
-						
-						<tr>
-						<span id="categories"></span>
-						<td><button type="button" value="add categorie" onclick="addCat();">Add categorie</button></td>
-						</tr>
 					</table>
 				</div>
 			</div>
 		</form:form>
 	</div>
-
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/xml-form.js"></script>
 </body>
 </html>

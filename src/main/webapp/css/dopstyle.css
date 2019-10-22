@@ -1,6 +1,25 @@
-.image-size img {
-  display: block;
-  width: 60px;
-  height: 35px !important;
-  margin: 0 auto;
+/* Sticky Footer Classes */
+
+html,
+body {
+  height: 100%;
+}
+
+#page-content {
+  flex: 1 0 auto;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+}
+
+body {
+  background: #007bff;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
+}
+
+.invisable {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
 }

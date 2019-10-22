@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+<link rel="stylesheet" href="../../css/dopstyle.css">
+<title>Welcome to Excel to XML convertor</title>
+</head>
+<body class="d-flex flex-column">
+	<div id="page-content">
+		<div class="container text-center">
+			<div class="row justify-content-center">
+				<div class="col-md-7">
+					<h1 class="font-weight-light mt-4 text-white">Здесь Вы можете
+						создать XML из Excel(и подобных программ) файла</h1>
+					<p class="lead text-white-50">Ниже Вам необходимо выбрать или
+						создать собственную конфигурацию (по умолчанию Розетка)</p>
+				</div>
+			</div>
+
+
+			<div id="accordion">
+				<div class="card invisable">
+					<div class="card-header">
+						<a class="card-link font-weight-light mt-4 text-white"
+							data-toggle="collapse" href="#basicProperties"> Конфигурация
+							магазина("shop") </a>
+					</div>
+					<div id="basicProperties" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							<table class="table font-weight-light mt-4 text-white">
+								<thead>
+									<tr>
+										<th class="text-center">Rezult column</th>
+										<th class="text-center">Resorce column</th>
+										<th class="text-center">If use excel resorces</th>
+										<th class="text-center">Excel list</th>
+										<th class="text-center">Excel cell</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id='shop_name'
+										title='	Короткое название магазина. Должно содержать не более 20 символов. В названии нельзя использовать слова, не имеющие отношения к наименованию магазина (например: «лучший», «дешевый»), указывать номер телефона и т. п. 
+Название магазина должно совпадать с фактическим названием магазина, которое публикуется на сайте.
+Обязательный элемент.'>
+										<td>Короткое название магазина (тэг 'name')</td>
+										<td><input id='shop_name_input' type='text'
+											maxlength="20" title='Введите название магазина'></td>
+										<td><input id='shop_name_excel_resorces' type="checkbox"
+											title='При условии использования данных из Excel файла'>
+										</td>
+										<td><input id='shop_name_excel_list' type='text'
+											title='Введите название листа из Excel книги'></td>
+										<td><input id='shop_name_excel_cell' type='text'
+											placeholder="Например: A1"
+											title='Введите название ячейки из Excel листа'></td>
+									</tr>
+									<tr id='company'
+										title='Полное наименование компании, владеющей магазином. Не публикуется, используется для внутренней идентификации. Обязательный элемент.'>
+										<td>Полное наименование компании, владеющей магазином</td>
+									</tr>
+									<tr id='url'
+										title='	URL главной страницы магазина. Обязательный элемент.'>
+										<td>URL главной страницы магазина.</td>
+									</tr>
+									<tr id='platform'
+										title='	Система управления контентом, на основе которой работает магазин (CMS). Необязательный элемент.'>
+										<td>Система управления контентом, на основе которой
+											работает магазин (CMS).</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="card invisable card-link font-weight-light mt-4 text-white">
+					<div class="card-header">
+						<a class="collapsed card-link font-weight-light mt-4 text-white"
+							data-toggle="collapse" href="#currencyProperties">
+							Список используемых валют </a>
+					</div>
+					<div id="currencyProperties" class="collapse"
+						data-parent="#accordion">
+						<div class="card-body">
+							<p>
+								Список курсов валют магазина. Обязательный элемент. Основная
+								валюта – гривна, присваивается единица.
+								<currency id="UAH" rate="1" />
+								Только у гривны rate="1". Другие валюты на сайт не выводятся и
+								главное, чтоб у них rate не был единицей.
+							</p>
+							<table id='currencies' class='table-sm-6 mx-auto'>
+								<thead>
+									<tr>
+										<td>ID валюты</td>
+										<td>Код валюты</td>
+									</tr>
+								</thead>
+								<tbody id="body_by_cur">
+									<tr>
+										<td><input id='currency_id_1' type='text' value='1'
+											disabled='true'></td>
+										<td><input id='currency_name_1' type='text' value='UAH'
+											disabled='true'></td>
+										<td class='p-0 pl-md-2 pr-sm-2' id="remove_currencie"
+											align="center" valign="middle"><img alt="delete row"
+											src="../../fonts/minus.svg" width="200%"></td>
+										<td class='p-0 pl-md-2 pr-sm-2' id="add_currencie"
+											align="center" valign="middle"><img alt="add new row"
+											src="../../fonts/plus.svg" width="200%"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-header">
+						<a class="collapsed card-link" data-toggle="collapse"
+							href="#categoriesProperties">Список категорий магазина</a>
+					</div>
+					<div id="categoriesProperties" class="collapse show"
+						data-parent="#accordion">
+						<div class="card-body">
+							<p>Список категорий магазина. Каждой категории должен
+								присваиваться уникальный номер, нумерация – на усмотрение
+								магазина. Принадлежность подкатегории к материнской категории
+								передается через атрибут parentId. При любых изменениях в прайсе
+								id категорий должны оставаться неизменными. Название категории
+								последнего уровня должно четко соответствовать конкретному виду
+								товара. В одной категории магазина не должно быть товаров из
+								двух разных категорий на нашем сайте. Например:
+							<p align="left">
+								Мебель>Диваны>Угловые диваны
+								<br />&emsp;&ltcategories&gt 
+								<br />&emsp;&emsp;&ltcategory id="5"&gtМебель&lt/category&gt 
+								<br />&emsp;&emsp;&ltcategory id="54" parentId="5"&gtДиваны&lt/category&gt 
+								<br />&emsp;&emsp;&ltcategory id="542" parentId="54"&gtУгловые диваны&lt/category&gt 
+								<br />&emsp;&lt/categories&gt
+							</p>
+							Обязательный элемент.
+							</p>
+							<table id='categores' class='table-sm-6 mx-auto'>
+								<thead>
+									<tr>
+										<td>ID category</td>
+										<td>ID paren category</td>
+										<td>Value category</td>
+									</tr>
+								</thead>
+								<tbody id="body_by_categores">
+									<tr>
+										<td><input id='category_id' type='text'></td>
+										<td><input id='category_parent_id' type='text'></td>
+										<td><input id='category_value' type='text'></td>
+										<td class='p-0 pl-md-2 pr-sm-2' id="add_category"
+											align="center" valign="middle">
+											<img alt="add new row"
+											src="../../fonts/plus.svg" width="200%"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-header">
+						<a class="collapsed card-link" data-toggle="collapse"
+							href="#collapseFour"> Collapsible Group Item #4 </a>
+					</div>
+					<div id="collapseFour" class="collapse" data-parent="#accordion">
+						<div class="card-body">Lorem ipsum..</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+		<div class="container text-center">
+			<small>Copyright &copy; Creator</small>
+		</div>
+	</footer>
+	<script src="../../js/jquery-3.4.1.min.js"></script>
+	<script src="../../js/bootstrap.min.js"></script>
+	<script src="../../js/xml-form.js"></script>
+</body>
+</html>
