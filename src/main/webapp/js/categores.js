@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	$(document).on('click','#remove_category',function(){
 		if ($('#categores tr').length == 3) {
 			$(this).closest('tr').remove();
@@ -103,7 +104,7 @@ $(document).ready(function() {
 					.attr('width', '200%')
 					)
 				)
-			)
+			);
 			$('#add_category').remove();
 	});
 });

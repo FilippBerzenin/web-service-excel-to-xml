@@ -11,8 +11,8 @@
 		<div class="container text-center">
 			<div class="row justify-content-center">
 				<div class="col-md-7">
-					<h1 class="font-weight-light mt-4">Здесь Вы можете
-						создать XML из Excel(и подобных программ) файла</h1>
+					<h1 class="font-weight-light mt-4">Здесь Вы можете создать XML
+						из Excel(и подобных программ) файла</h1>
 					<p class="lead text-black-70">Ниже Вам необходимо выбрать или
 						создать собственную конфигурацию (по умолчанию Розетка)</p>
 				</div>
@@ -23,12 +23,12 @@
 				<div class="card">
 					<div class="card-header">
 						<a class="h3 card-link font-weight-light mt-4"
-							data-toggle="collapse" href="#basicProperties">
-							Конфигурация магазина("shop")</a>
+							data-toggle="collapse" href="#basicProperties"> Конфигурация
+							магазина("shop")</a>
 					</div>
-					<div id="basicProperties" class="collapse" data-parent="#accordion">
+					<div id="basicProperties" class="collapse show" data-parent="#accordion">
 						<div class="card-body">
-							<table class="table font-weight-light mt-4">
+							<table id='shopProperties' class="table font-weight-light mt-4">
 								<thead>
 									<tr>
 										<th class="text-center">Rezult column</th>
@@ -46,8 +46,11 @@
 										<td>Короткое название магазина (тэг 'name')</td>
 										<td><input id='shop_name_input' type='text'
 											maxlength="20" title='Введите название магазина'></td>
-										<td><input id='shop_name_excel_resorces' type="checkbox"
-											title='При условии использования данных из Excel файла'>
+										<td>									
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input"	id="excelResourcesName" > 
+												<label class="custom-control-label" for="excelResourcesName"></label>
+											</div>
 										</td>
 										<td><input id='shop_name_excel_list' type='text'
 											title='Введите название листа из Excel книги'></td>
@@ -58,15 +61,54 @@
 									<tr id='company'
 										title='Полное наименование компании, владеющей магазином. Не публикуется, используется для внутренней идентификации. Обязательный элемент.'>
 										<td>Полное наименование компании, владеющей магазином</td>
+										<td><input id='shop_company_input' type='text'
+											maxlength="20" title='Введите название компании'></td>
+										<td>									
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input"	id="excelResourcesCompany" > 
+												<label class="custom-control-label" for="excelResourcesCompany"></label>
+											</div>
+										</td>
+										<td><input id='shop_company_excel_list' type='text'
+											title='Введите название листа из Excel книги'></td>
+										<td><input id='shop_company_excel_cell' type='text'
+											placeholder="Например: A1"
+											title='Введите название ячейки из Excel листа'></td>										
 									</tr>
 									<tr id='url'
 										title='	URL главной страницы магазина. Обязательный элемент.'>
-										<td>URL главной страницы магазина.</td>
+										<td>URL главной страницы магазина</td>
+										<td><input id='shop_url_input' type='text'
+											maxlength="20" title='Введите название URL'></td>
+										<td>									
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input"	id="excelResourcesUrl" > 
+												<label class="custom-control-label" for="excelResourcesUrl"></label>
+											</div>
+										</td>
+										<td><input id='shop_url_excel_list' type='text'
+											title='Введите название листа из Excel книги'></td>
+										<td><input id='shop_url_excel_cell' type='text'
+											placeholder="Например: A1"
+											title='Введите название ячейки из Excel листа'></td>
 									</tr>
 									<tr id='platform'
 										title='	Система управления контентом, на основе которой работает магазин (CMS). Необязательный элемент.'>
 										<td>Система управления контентом, на основе которой
-											работает магазин (CMS).</td>
+											работает магазин (CMS)</td>
+										<td><input id='shop_platform_input' type='text'
+											maxlength="20" title='Введите cистему управления контентом'></td>
+										<td>									
+											<div class="custom-control custom-switch">
+												<input type="checkbox" class="custom-control-input"	id="excelResourcesPlatform" > 
+												<label class="custom-control-label" for="excelResourcesPlatform"></label>
+											</div>
+										</td>
+										<td><input id='shop_platform_excel_list' type='text'
+											title='Введите название листа из Excel книги'></td>
+										<td><input id='shop_platform_excel_cell' type='text'
+											placeholder="Например: A1"
+											title='Введите название ячейки из Excel листа'></td>
 									</tr>
 								</tbody>
 							</table>
@@ -77,8 +119,8 @@
 				<div class="card">
 					<div class="card-header">
 						<a class="h3 collapsed card-link font-weight-light mt-4"
-							data-toggle="collapse" href="#currencyProperties">
-							Список используемых валют </a>
+							data-toggle="collapse" href="#currencyProperties"> Список
+							используемых валют </a>
 					</div>
 					<div id="currencyProperties" class="collapse"
 						data-parent="#accordion">
@@ -113,10 +155,11 @@
 
 				<div class="card">
 					<div class="card-header">
-						<a class="h3 collapsed card-link font-weight-light mt-4" data-toggle="collapse"
-							href="#categoriesProperties">Список категорий магазина</a>
+						<a class="h3 collapsed card-link font-weight-light mt-4"
+							data-toggle="collapse" href="#categoriesProperties">Список
+							категорий магазина</a>
 					</div>
-					<div id="categoriesProperties" class="collapse"
+					<div id="categoriesProperties" class="collapse show"
 						data-parent="#accordion">
 						<div class="card-body">
 							<p>Список категорий магазина. Каждой категории должен
@@ -127,16 +170,14 @@
 								последнего уровня должно четко соответствовать конкретному виду
 								товара. В одной категории магазина не должно быть товаров из
 								двух разных категорий на нашем сайте. Например:
+							</p>
 							<p align="left">
-								Мебель>Диваны>Угловые диваны
-								<br />&emsp;&ltcategories&gt 
-								<br />&emsp;&emsp;&ltcategory id="5"&gtМебель&lt/category&gt 
-								<br />&emsp;&emsp;&ltcategory id="54" parentId="5"&gtДиваны&lt/category&gt 
-								<br />&emsp;&emsp;&ltcategory id="542" parentId="54"&gtУгловые диваны&lt/category&gt 
-								<br />&emsp;&lt/categories&gt
-							</p>
+								Мебель>Диваны>Угловые диваны <br />&emsp;&ltcategories&gt <br />&emsp;&emsp;&ltcategory
+								id="5"&gtМебель&lt/category&gt <br />&emsp;&emsp;&ltcategory
+								id="54" parentId="5"&gtДиваны&lt/category&gt <br />&emsp;&emsp;&ltcategory
+								id="542" parentId="54"&gtУгловые диваны&lt/category&gt <br />&emsp;&lt/categories&gt
 							Обязательный элемент.
-							</p>
+							</p>		
 							<table id='categores' class='table-sm-6 mx-auto'>
 								<thead>
 									<tr>
@@ -151,8 +192,7 @@
 										<td><input id='category_parent_id' type='text'></td>
 										<td><input id='category_value' type='text'></td>
 										<td class='p-0 pl-md-2 pr-sm-2' id="add_category"
-											align="center" valign="middle">
-											<img alt="add new row"
+											align="center" valign="middle"><img alt="add new row"
 											src="../../fonts/plus.svg" width="200%"></td>
 									</tr>
 								</tbody>
@@ -163,30 +203,104 @@
 
 				<div class="card">
 					<div class="card-header">
-						<a class="h3 collapsed card-link font-weight-light mt-4" data-toggle="collapse"
-							href="#collapseFour"> Список предложений магазина </a>
+						<a class="h3 collapsed card-link font-weight-light mt-4"
+							data-toggle="collapse" href="#collapseFour"> Список
+							предложений магазина </a>
 					</div>
-					<div id="collapseFour" class="collapse" data-parent="#accordion">
-						<div class="card-body">Lorem ipsum..</div>
+					<div id="collapseFour" class="collapse"
+						data-parent="#accordion">
+						<div class="card-body">
+							<p>Каждое предложение описывается в отдельном элементе offer.
+								Каждое предложение должно иметь уникальный идентификатор. При
+								внесении изменений в прайс offer id должен оставаться
+								неизменным. На каждую модификацию товара: цвет, размер, объем,
+								комплектацию и т.д. – должен быть создан отдельный уникальный
+								offer id в прайсе. После загрузки товары будут сгруппированы
+								контент-отделом Розетки. Подробнее:
+								https://rozetka.com.ua/sellerinfo/pricelist/</p>
+							<div id='offer' class="row justify-content-start">
+								<form>
+									<div class="custom-control custom-switch">
+										<input type="checkbox" class="custom-control-input"	id="available"> 
+										<label class="custom-control-label" for="available">Наличие на складе (по умолчанию - доступно)</label>
+									</div>
+  									<div class="form-group row">
+    									<label for="uniqId" class="col-sm-6 col-form-label">ID</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="uniqId">
+    									</div>
+ 									</div>
+ 									  <div class="form-group row">
+    									<label for="stockQuantity" class="col-sm-6 col-form-label">Stock quantity (остатки количества товара)</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="stockQuantity">
+    									</div>
+ 									</div>
+ 									 <div class="form-group row">
+    									<label for="urlOffer" class="col-sm-6 col-form-label">URL (путь к товару в магазине)</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="urlOffer">
+    									</div>
+ 									</div>
+ 									 <div class="form-group row">
+    									<label for="price" class="col-sm-6 col-form-label">Цена</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="price">
+    									</div>
+ 									</div>
+ 									 <div class="form-group row">
+    									<label for="currency" class="col-sm-6 col-form-label">Валюта товара</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="currency">
+    									</div>
+ 									</div>
+ 									 <div class="form-group row">
+    									<label for="category" class="col-sm-6 col-form-label">Категория</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="category">
+    									</div>
+ 									</div>
+ 									 <div class="form-group row">
+    									<label for="pictures" class="col-sm-6 col-form-label">Фото товара (макс - 8шт.)</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="pictures">
+    									</div>
+ 									</div>
+ 									<div class="form-group row">
+    									<label for="description" class="col-sm-6 col-form-label">Описание товара</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="description">
+    									</div>
+ 									</div>
+ 									<div class="form-group row">
+    									<label for="parametrs" class="col-sm-6 col-form-label">Параметры</label>
+    									<div class="col-sm-6">
+      										<input type="text" class="form-control" id="parametrs">
+    									</div>
+ 									</div>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
-	</div>
+</div>
+<br>
 
 
 
-	<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-		<div class="container text-center">
-			<small>Copyright &copy; Creator</small>
-		</div>
-	</footer>
-	<script src="../../js/jquery-3.4.1.min.js"></script>
-	<script src="../../js/bootstrap.min.js"></script>
-	<script src="../../js/xml-form.js"></script>
-	<script src="../../js/currencies.js"></script>
-	<script src="../../js/categores.js"></script>
+
+		<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+			<div class="container text-center">
+				<small>Copyright &copy; Creator</small>
+			</div>
+		</footer>
+		<script src="../../js/jquery-3.4.1.min.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>		
+		<script src="../../js/xml-form.js"></script>
+		<script src="../../js/shop_properties.js"></script>
+		<script src="../../js/currencies.js"></script>
+		<script src="../../js/categores.js"></script>
 </body>
 </html>
