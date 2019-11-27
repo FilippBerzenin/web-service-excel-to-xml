@@ -17,6 +17,12 @@
 						создать собственную конфигурацию (по умолчанию Розетка)</p>
 				</div>
 			</div>
+			
+			<div class="my-2">
+<input type="file" multiple="multiple" accept=".xls,.xlsx">
+<a href="#" class="upload_files button">Загрузить файлы</a>
+<div class="ajax-reply"></div>
+			</div>
 
 
 			<div id="accordion">
@@ -194,9 +200,12 @@
 										<td><input id='category_id' type='text'></td>
 										<td><input id='category_parent_id' type='text'></td>
 										<td><input id='category_value' type='text'></td>
-										<td class='p-0 pl-md-2 pr-sm-2' id="add_category"
+										<td class='p-0 pl-md-2 pr-sm-2' id="addRow"
 											align="center" valign="middle"><img alt="add new row"
 											src="../../fonts/plus.svg" width="200%"></td>
+										<td class='p-0 pl-md-2 pr-sm-2' id="removeRow"
+											align="center" valign="middle" style='display:none;'><img alt="remove row"
+											src="../../fonts/minus.svg" width="200%"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -299,11 +308,11 @@
 				<small>Copyright &copy; Creator</small>
 			</div>
 		</footer>
-		<script src="../../js/jquery-3.4.1.min.js"></script>
+		<script src="../../js/jquery-3.4.1.js"></script>
 		<script src="../../js/bootstrap.min.js"></script>		
 		<script src="../../js/xml-form.js"></script>
 		<script src="../../js/shop_properties.js"></script>
-		<script src="../../js/currencies.js"></script>
-		<script src="../../js/categores.js"></script>
+		<script src="../../js/download.js"></script>
+		
 </body>
 </html>
