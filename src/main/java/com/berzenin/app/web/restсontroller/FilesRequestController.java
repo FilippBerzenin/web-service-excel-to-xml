@@ -2,6 +2,8 @@ package com.berzenin.app.web.restсontroller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.berzenin.app.model.ExcelList;
 import com.berzenin.app.service.controller.ExcelFileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +45,23 @@ public class FilesRequestController {
     
     @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/fileUpload")
-    public ResponseEntity<Object> fileUpload(@RequestParam("file") MultipartFile file)
-          throws IOException {
+    public List<ExcelList> fileUpload(
+    		@RequestParam("file") MultipartFile file)throws IOException {
     	log.info("Get excel file: "+file.getOriginalFilename());
+//    	List<String> ss = new ArrayList<>();
+//    	ss.add("Hello");
+//    	ss.add("Filipp");
+//    	ss.add("Vika");
+//    	return ss;
        if (!file.getOriginalFilename().isEmpty()) {
     	   File fileTemp = File.createTempFile(file.getOriginalFilename()+"temp", "xlsx");
     	   file.transferTo(fileTemp);
-    	   excelFileService.getAllSheetName(fileTemp);
+    	   List<ExcelList> excelLists = excelFileService.getAllSheetName(fileTemp).get();
+//    	   return new ResponseEntity<ss>("File Uploaded Successfully.",HttpStatus.OK);
+    	   return excelLists;
        }else{
-          return new ResponseEntity<>("Invalid file.",HttpStatus.BAD_REQUEST);
-       }       
-       return new ResponseEntity<>("File Uploaded Successfully.",HttpStatus.OK);
+//          return new ResponseEntity<ss>("Invalid file.",HttpStatus.BAD_REQUEST);
+       }
+	return null;       
     }
 }

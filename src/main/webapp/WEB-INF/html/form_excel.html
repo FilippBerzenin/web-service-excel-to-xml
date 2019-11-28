@@ -17,11 +17,27 @@
 						создать собственную конфигурацию (по умолчанию Розетка)</p>
 				</div>
 			</div>
-			
 			<div class="my-2">
-<input type="file" multiple="multiple" accept=".xls,.xlsx">
-<a href="#" class="upload_files button">Загрузить файлы</a>
-<div class="ajax-reply"></div>
+				<form enctype="multipart/form-data">
+						<label>Select File</label> 
+						<input type="file" name="file" accept=".xls,.xlsx">
+						<button class="btn btn-primary" type="submit">Upload</button>
+				</form>
+				<br />
+
+				<!-- Bootstrap Progress bar -->
+				<div class="progress">
+					<div id="progressBar" class="progress-bar progress-bar-success"
+						role="progressbar" aria-valuenow="0" aria-valuemin="0"
+						aria-valuemax="100" style="width: 0%">0%</div>
+				</div>
+
+				<!-- Alert -->
+				<div id="alertMsg" style="color: red; font-size: 18px;"></div>
+			</div>
+			
+			<div id='pagesName'>
+				
 			</div>
 
 
@@ -52,10 +68,11 @@
 										<td>Короткое название магазина (тэг 'name')</td>
 										<td><input id='shop_name_input' type='text'
 											maxlength="20" title='Введите название магазина'></td>
-										<td>									
+										<td>
 											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"	id="excelResourcesName" > 
-												<label class="custom-control-label" for="excelResourcesName"></label>
+												<input type="checkbox" class="custom-control-input"
+													id="excelResourcesName"> <label
+													class="custom-control-label" for="excelResourcesName"></label>
 											</div>
 										</td>
 										<td><input id='shop_name_excel_list' type='text'
@@ -69,27 +86,29 @@
 										<td>Полное наименование компании, владеющей магазином</td>
 										<td><input id='shop_company_input' type='text'
 											maxlength="20" title='Введите название компании'></td>
-										<td>									
+										<td>
 											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"	id="excelResourcesCompany" > 
-												<label class="custom-control-label" for="excelResourcesCompany"></label>
+												<input type="checkbox" class="custom-control-input"
+													id="excelResourcesCompany"> <label
+													class="custom-control-label" for="excelResourcesCompany"></label>
 											</div>
 										</td>
 										<td><input id='shop_company_excel_list' type='text'
 											title='Введите название листа из Excel книги'></td>
 										<td><input id='shop_company_excel_cell' type='text'
 											placeholder="Например: A1"
-											title='Введите название ячейки из Excel листа'></td>										
+											title='Введите название ячейки из Excel листа'></td>
 									</tr>
 									<tr id='url'
 										title='	URL главной страницы магазина. Обязательный элемент.'>
 										<td>URL главной страницы магазина</td>
-										<td><input id='shop_url_input' type='text'
-											maxlength="20" title='Введите название URL'></td>
-										<td>									
+										<td><input id='shop_url_input' type='text' maxlength="20"
+											title='Введите название URL'></td>
+										<td>
 											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"	id="excelResourcesUrl" > 
-												<label class="custom-control-label" for="excelResourcesUrl"></label>
+												<input type="checkbox" class="custom-control-input"
+													id="excelResourcesUrl"> <label
+													class="custom-control-label" for="excelResourcesUrl"></label>
 											</div>
 										</td>
 										<td><input id='shop_url_excel_list' type='text'
@@ -104,10 +123,11 @@
 											работает магазин (CMS)</td>
 										<td><input id='shop_platform_input' type='text'
 											maxlength="20" title='Введите cистему управления контентом'></td>
-										<td>									
+										<td>
 											<div class="custom-control custom-switch">
-												<input type="checkbox" class="custom-control-input"	id="excelResourcesPlatform" > 
-												<label class="custom-control-label" for="excelResourcesPlatform"></label>
+												<input type="checkbox" class="custom-control-input"
+													id="excelResourcesPlatform"> <label
+													class="custom-control-label" for="excelResourcesPlatform"></label>
 											</div>
 										</td>
 										<td><input id='shop_platform_excel_list' type='text'
@@ -149,12 +169,12 @@
 									<tr>
 										<td><input id='currency_id' type='text' value='1'></td>
 										<td><input id='currency_name' type='text' value='UAH'></td>
-										<td class='p-0 pl-md-2 pr-sm-2' id="addRow"
-											align="center" valign="middle"><img alt="add new row"
+										<td class='p-0 pl-md-2 pr-sm-2' id="addRow" align="center"
+											valign="middle"><img alt="add new row"
 											src="../../fonts/plus.svg" width="200%"></td>
-										<td class='p-0 pl-md-2 pr-sm-2' id="removeRow"
-											align="center" valign="middle" style='display:none;'><img alt="remove row"
-											src="../../fonts/minus.svg" width="200%"></td>
+										<td class='p-0 pl-md-2 pr-sm-2' id="removeRow" align="center"
+											valign="middle" style='display: none;'><img
+											alt="remove row" src="../../fonts/minus.svg" width="200%"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -178,15 +198,14 @@
 								id категорий должны оставаться неизменными. Название категории
 								последнего уровня должно четко соответствовать конкретному виду
 								товара. В одной категории магазина не должно быть товаров из
-								двух разных категорий на нашем сайте. Например:
-							</p>
+								двух разных категорий на нашем сайте. Например:</p>
 							<p align="left">
 								Мебель>Диваны>Угловые диваны <br />&emsp;&ltcategories&gt <br />&emsp;&emsp;&ltcategory
 								id="5"&gtМебель&lt/category&gt <br />&emsp;&emsp;&ltcategory
 								id="54" parentId="5"&gtДиваны&lt/category&gt <br />&emsp;&emsp;&ltcategory
 								id="542" parentId="54"&gtУгловые диваны&lt/category&gt <br />&emsp;&lt/categories&gt
-							Обязательный элемент.
-							</p>		
+								Обязательный элемент.
+							</p>
 							<table id='categores' class='table-sm-6 mx-auto'>
 								<thead>
 									<tr>
@@ -200,12 +219,12 @@
 										<td><input id='category_id' type='text'></td>
 										<td><input id='category_parent_id' type='text'></td>
 										<td><input id='category_value' type='text'></td>
-										<td class='p-0 pl-md-2 pr-sm-2' id="addRow"
-											align="center" valign="middle"><img alt="add new row"
+										<td class='p-0 pl-md-2 pr-sm-2' id="addRow" align="center"
+											valign="middle"><img alt="add new row"
 											src="../../fonts/plus.svg" width="200%"></td>
-										<td class='p-0 pl-md-2 pr-sm-2' id="removeRow"
-											align="center" valign="middle" style='display:none;'><img alt="remove row"
-											src="../../fonts/minus.svg" width="200%"></td>
+										<td class='p-0 pl-md-2 pr-sm-2' id="removeRow" align="center"
+											valign="middle" style='display: none;'><img
+											alt="remove row" src="../../fonts/minus.svg" width="200%"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -219,8 +238,7 @@
 							data-toggle="collapse" href="#collapseFour"> Список
 							предложений магазина </a>
 					</div>
-					<div id="collapseFour" class="collapse"
-						data-parent="#accordion">
+					<div id="collapseFour" class="collapse" data-parent="#accordion">
 						<div class="card-body">
 							<p>Каждое предложение описывается в отдельном элементе offer.
 								Каждое предложение должно иметь уникальный идентификатор. При
@@ -233,63 +251,70 @@
 							<div id='offer' class="row justify-content-start">
 								<form>
 									<div class="custom-control custom-switch">
-										<input type="checkbox" class="custom-control-input"	id="available"> 
-										<label class="custom-control-label" for="available">Наличие на складе (по умолчанию - доступно)</label>
+										<input type="checkbox" class="custom-control-input"
+											id="available"> <label class="custom-control-label"
+											for="available">Наличие на складе (по умолчанию -
+											доступно)</label>
 									</div>
-  									<div class="form-group row">
-    									<label for="uniqId" class="col-sm-6 col-form-label">ID</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="uniqId">
-    									</div>
- 									</div>
- 									  <div class="form-group row">
-    									<label for="stockQuantity" class="col-sm-6 col-form-label">Stock quantity (остатки количества товара)</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="stockQuantity">
-    									</div>
- 									</div>
- 									 <div class="form-group row">
-    									<label for="urlOffer" class="col-sm-6 col-form-label">URL (путь к товару в магазине)</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="urlOffer">
-    									</div>
- 									</div>
- 									 <div class="form-group row">
-    									<label for="price" class="col-sm-6 col-form-label">Цена</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="price">
-    									</div>
- 									</div>
- 									 <div class="form-group row">
-    									<label for="currency" class="col-sm-6 col-form-label">Валюта товара</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="currency">
-    									</div>
- 									</div>
- 									 <div class="form-group row">
-    									<label for="category" class="col-sm-6 col-form-label">Категория</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="category">
-    									</div>
- 									</div>
- 									 <div class="form-group row">
-    									<label for="pictures" class="col-sm-6 col-form-label">Фото товара (макс - 8шт.)</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="pictures">
-    									</div>
- 									</div>
- 									<div class="form-group row">
-    									<label for="description" class="col-sm-6 col-form-label">Описание товара</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="description">
-    									</div>
- 									</div>
- 									<div class="form-group row">
-    									<label for="parametrs" class="col-sm-6 col-form-label">Параметры</label>
-    									<div class="col-sm-6">
-      										<input type="text" class="form-control" id="parametrs">
-    									</div>
- 									</div>
+									<div class="form-group row">
+										<label for="uniqId" class="col-sm-6 col-form-label">ID</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="uniqId">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="stockQuantity" class="col-sm-6 col-form-label">Stock
+											quantity (остатки количества товара)</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="stockQuantity">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="urlOffer" class="col-sm-6 col-form-label">URL
+											(путь к товару в магазине)</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="urlOffer">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="price" class="col-sm-6 col-form-label">Цена</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="price">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="currency" class="col-sm-6 col-form-label">Валюта
+											товара</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="currency">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="category" class="col-sm-6 col-form-label">Категория</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="category">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="pictures" class="col-sm-6 col-form-label">Фото
+											товара (макс - 8шт.)</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="pictures">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="description" class="col-sm-6 col-form-label">Описание
+											товара</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="description">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="parametrs" class="col-sm-6 col-form-label">Параметры</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="parametrs">
+										</div>
+									</div>
 								</form>
 							</div>
 						</div>
@@ -297,22 +322,23 @@
 				</div>
 			</div>
 		</div>
-</div>
-<br>
+	</div>
+	<br>
 
 
 
 
-		<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-			<div class="container text-center">
-				<small>Copyright &copy; Creator</small>
-			</div>
-		</footer>
-		<script src="../../js/jquery-3.4.1.js"></script>
-		<script src="../../js/bootstrap.min.js"></script>		
-		<script src="../../js/xml-form.js"></script>
-		<script src="../../js/shop_properties.js"></script>
-		<script src="../../js/download.js"></script>
-		
+	<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+		<div class="container text-center">
+			<small>Copyright &copy; Creator</small>
+		</div>
+	</footer>
+	<script src="../../js/jquery-3.4.1.js"></script>
+	<script src="../../js/bootstrap.min.js"></script>
+	<script src="../../js/xml-form.js"></script>
+	<script src="../../js/shop_properties.js"></script>
+	<script src="../../js/download.js"></script>
+	<script src="../../js/move-button.js"></script>
+
 </body>
 </html>
