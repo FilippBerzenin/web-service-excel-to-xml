@@ -1,0 +1,35 @@
+<html>
+<head>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- <style type="text/css">
+.ui-draggable
+{
+padding:15px;
+border-style:solid;
+border-width:1px;
+width:130px;
+height:100px;
+}
+.ui-draggable-dragging
+{
+background-color:#ecbfda;
+}
+</style> -->
+<script type="text/javascript">
+$(document).ready(function() {
+  
+/*    $("div").draggable(); */
+   $("div.moveable").draggable(function (t) {
+	   alert('')
+   });
+
+});
+</script>
+</head>
+<body>
+<div class="ui-widget ui-corner-all moveable">Example</div>
+<div class="ui-widget ui-corner-all moveable">Вы можете перетаскивать меня мышкой. </div>
+</body>
+</html>

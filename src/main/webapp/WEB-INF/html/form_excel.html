@@ -2,8 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" />
 <link rel="stylesheet" href="../../css/dopstyle.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <title>Welcome to Excel to XML convertor</title>
 </head>
 <body class="d-flex flex-column">
@@ -37,18 +40,18 @@
 			</div>
 			
 			<div id='pagesName'>
-				
+				<div class='col-sm-3 moveable-excelPage'>Example</div>
+				<div class='col-sm-3 moveable-excelPage'>Example 2</div>
 			</div>
 
-
-			<div id="accordion">
+			<div id="accordion" class='draggableContainer'>
 				<div class="card">
 					<div class="card-header">
 						<a class="h3 card-link font-weight-light mt-4"
 							data-toggle="collapse" href="#basicProperties"> Конфигурация
 							магазина("shop")</a>
 					</div>
-					<div id="basicProperties" class="collapse" data-parent="#accordion">
+					<div id="basicProperties" class="collapse show" data-parent="#accordion">
 						<div class="card-body">
 							<table id='shopProperties' class="table font-weight-light mt-4">
 								<thead>
@@ -75,16 +78,16 @@
 													class="custom-control-label" for="excelResourcesName"></label>
 											</div>
 										</td>
-										<td><input id='shop_name_excel_list' type='text'
+										<td><input class="droppableExcelList" id='excel_list' type='text'
 											title='Введите название листа из Excel книги'></td>
-										<td><input id='shop_name_excel_cell' type='text'
+										<td><input class="droppableExcelColumn" id='shop_name_excel_cell' type='text'
 											placeholder="Например: A1"
 											title='Введите название ячейки из Excel листа'></td>
 									</tr>
 									<tr id='company'
 										title='Полное наименование компании, владеющей магазином. Не публикуется, используется для внутренней идентификации. Обязательный элемент.'>
 										<td>Полное наименование компании, владеющей магазином</td>
-										<td><input id='shop_company_input' type='text'
+										<td><input class='inputValue' id='shop_company_input' type='text'
 											maxlength="20" title='Введите название компании'></td>
 										<td>
 											<div class="custom-control custom-switch">
@@ -93,7 +96,7 @@
 													class="custom-control-label" for="excelResourcesCompany"></label>
 											</div>
 										</td>
-										<td><input id='shop_company_excel_list' type='text'
+										<td><input class="droppableExcelList"  id='excel_list' type='text'
 											title='Введите название листа из Excel книги'></td>
 										<td><input id='shop_company_excel_cell' type='text'
 											placeholder="Например: A1"
@@ -111,7 +114,7 @@
 													class="custom-control-label" for="excelResourcesUrl"></label>
 											</div>
 										</td>
-										<td><input id='shop_url_excel_list' type='text'
+										<td><input class="droppableExcelList" id='excel_list' type='text'
 											title='Введите название листа из Excel книги'></td>
 										<td><input id='shop_url_excel_cell' type='text'
 											placeholder="Например: A1"
@@ -130,7 +133,7 @@
 													class="custom-control-label" for="excelResourcesPlatform"></label>
 											</div>
 										</td>
-										<td><input id='shop_platform_excel_list' type='text'
+										<td><input class="droppableExcelList" id='excel_list' type='text'
 											title='Введите название листа из Excel книги'></td>
 										<td><input id='shop_platform_excel_cell' type='text'
 											placeholder="Например: A1"
@@ -148,7 +151,7 @@
 							data-toggle="collapse" href="#currencyProperties"> Список
 							используемых валют </a>
 					</div>
-					<div id="currencyProperties" class="collapse show"
+					<div id="currencyProperties" class="collapse"
 						data-parent="#accordion">
 						<div class="card-body">
 							<p>
@@ -333,7 +336,6 @@
 			<small>Copyright &copy; Creator</small>
 		</div>
 	</footer>
-	<script src="../../js/jquery-3.4.1.js"></script>
 	<script src="../../js/bootstrap.min.js"></script>
 	<script src="../../js/xml-form.js"></script>
 	<script src="../../js/shop_properties.js"></script>
